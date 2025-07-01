@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeamPulse - Anonymous Surveys for Microsoft Teams</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #333; }
+        
+        /* Header */
+        header { background: #0078d4; color: white; padding: 20px 0; position: fixed; width: 100%; top: 0; z-index: 1000; }
+        nav { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 24px; font-weight: bold; }
+        .nav-links a { color: white; text-decoration: none; margin-left: 30px; }
+        
+        /* Hero Section */
+        .hero { background: linear-gradient(135deg, #0078d4 0%, #106ebe 100%); color: white; padding: 150px 20px 80px; text-align: center; }
+        .hero h1 { font-size: 48px; margin-bottom: 20px; }
+        .hero p { font-size: 20px; margin-bottom: 30px; }
+        .cta-button { display: inline-block; background: white; color: #0078d4; padding: 15px 40px; text-decoration: none; border-radius: 4px; font-weight: bold; font-size: 18px; }
+        
+        /* Features */
+        .features { padding: 80px 20px; background: #f8f9fa; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 50px; }
+        .feature { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .feature h3 { color: #0078d4; margin-bottom: 15px; }
+        
+        /* Pricing */
+        .pricing { padding: 80px 20px; }
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 50px; }
+        .price-card { background: white; border: 2px solid #e0e0e0; padding: 40px; border-radius: 8px; text-align: center; position: relative; }
+        .price-card.featured { border-color: #0078d4; transform: scale(1.05); }
+        .price-card h3 { font-size: 24px; margin-bottom: 20px; }
+        .price { font-size: 36px; color: #0078d4; margin: 20px 0; }
+        .price-features { list-style: none; margin: 30px 0; }
+        .price-features li { padding: 10px 0; border-bottom: 1px solid #eee; }
+        
+        /* Footer */
+        footer { background: #333; color: white; padding: 40px 20px; text-align: center; }
+        .footer-links { margin: 20px 0; }
+        .footer-links a { color: white; text-decoration: none; margin: 0 15px; }
+        .footer-links a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">🎯 TeamPulse</div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="/web/teampulse/support">Support</a>
+                <a href="#">Get Started</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Anonymous Surveys for Microsoft Teams</h1>
+        <p>Create, distribute, and analyze employee feedback with complete anonymity</p>
+        <a href="#" class="cta-button">Install from AppSource</a>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 36px; margin-bottom: 20px;">Why TeamPulse?</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <h3>🔒 True Anonymity</h3>
+                    <p>Cryptographic hashing ensures responses can never be traced back to individuals, encouraging honest feedback.</p>
+                </div>
+                <div class="feature">
+                    <h3>🤖 AI-Powered Creation</h3>
+                    <p>Create professional surveys in seconds with Azure OpenAI assistance. Just describe what you need.</p>
+                </div>
+                <div class="feature">
+                    <h3>📊 Instant Analytics</h3>
+                    <p>Real-time results with visual charts and AI-generated insights to help you make data-driven decisions.</p>
+                </div>
+                <div class="feature">
+                    <h3>🎯 Native Teams Integration</h3>
+                    <p>Works seamlessly within Microsoft Teams. No external apps or logins required.</p>
+                </div>
+                <div class="feature">
+                    <h3>📋 Professional Templates</h3>
+                    <p>Pre-built templates for employee satisfaction, NPS, training feedback, and more.</p>
+                </div>
+                <div class="feature">
+                    <h3>☁️ Enterprise Security</h3>
+                    <p>Built on Azure with enterprise-grade security, encryption, and compliance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 36px; margin-bottom: 20px;">Simple, Transparent Pricing</h2>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <h3>Free</h3>
+                    <div class="price">$0</div>
+                    <p>Perfect for small teams</p>
+                    <ul class="price-features">
+                        <li>50 responses per survey</li>
+                        <li>1 survey per week</li>
+                        <li>Basic analytics</li>
+                        <li>3 templates</li>
+                        <li>Community support</li>
+                    </ul>
+                    <a href="#" class="cta-button">Get Started</a>
+                </div>
+                
+                <div class="price-card featured">
+                    <h3>Professional</h3>
+                    <div class="price">$4<span style="font-size: 18px;">/user/month</span></div>
+                    <p>For growing organizations</p>
+                    <ul class="price-features">
+                        <li>Unlimited responses</li>
+                        <li>Unlimited surveys</li>
+                        <li>Advanced analytics</li>
+                        <li>All templates</li>
+                        <li>Excel export</li>
+                        <li>Email support</li>
+                    </ul>
+                    <a href="#" class="cta-button">Start Free Trial</a>
+                </div>
+                
+                <div class="price-card">
+                    <h3>Enterprise</h3>
+                    <div class="price">$8<span style="font-size: 18px;">/user/month</span></div>
+                    <p>For large enterprises</p>
+                    <ul class="price-features">
+                        <li>Everything in Professional</li>
+                        <li>Custom branding</li>
+                        <li>Power BI integration</li>
+                        <li>Admin dashboard</li>
+                        <li>Priority support</li>
+                        <li>Custom templates</li>
+                    </ul>
+                    <a href="#" class="cta-button">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 INCUBA CONSULTORES S.A. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="/web/teampulse/privacy">📋 Privacy Policy</a>
+            <a href="/web/teampulse/terms">📄 Terms of Service</a>
+            <a href="/web/teampulse/eula">⚖️ End User License Agreement</a>
+            <a href="/web/teampulse/support">🛠️ Support</a>
+            <a href="mailto:contact@incumate.io">✉️ Contact</a>
+        </div>
+        <p style="margin-top: 20px; color: #ccc; font-size: 14px;">
+            TeamPulse is a registered trademark of INCUBA CONSULTORES S.A.<br>
+            All legal documents updated for Microsoft Teams App Store compliance.
+        </p>
+    </footer>
+</body>
+</html>
