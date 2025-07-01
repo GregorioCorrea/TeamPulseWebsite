@@ -1,100 +1,270 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TeamPulse - Terms of Service</title>
+    <title>TeamPulse - Términos de Servicio</title>
+    <link rel="icon" type="image/png" href="logo.png">
     <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 20px; }
-        h1 { color: #0078d4; }
-        h2 { color: #106ebe; margin-top: 30px; }
-        .last-updated { color: #666; font-style: italic; }
-        .section { margin-bottom: 25px; }
-        .important { background: #f0f8ff; padding: 15px; border-left: 4px solid #0078d4; margin: 20px 0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #333; }
+        
+        /* Paleta de colores basada en el logo */
+        :root {
+            --primary-color: #E91E63;
+            --secondary-color: #673AB7;
+            --gradient: linear-gradient(135deg, #E91E63 0%, #673AB7 100%);
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --gray: #666;
+            --dark: #333;
+        }
+        
+        /* Header */
+        header { 
+            background: var(--gradient); 
+            color: white; 
+            padding: 15px 0; 
+            position: fixed; 
+            width: 100%; 
+            top: 0; 
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        nav { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 0 20px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .logo { 
+            display: flex; 
+            align-items: center; 
+            font-size: 24px; 
+            font-weight: bold; 
+            text-decoration: none;
+            color: white;
+        }
+        .logo img { 
+            height: 40px; 
+            margin-right: 10px; 
+        }
+        .nav-links a { 
+            color: white; 
+            text-decoration: none; 
+            margin-left: 30px; 
+            transition: opacity 0.3s;
+        }
+        .nav-links a:hover { 
+            opacity: 0.8; 
+        }
+        
+        /* Main Content */
+        main {
+            max-width: 800px;
+            margin: 100px auto 0;
+            padding: 20px;
+            min-height: calc(100vh - 200px);
+        }
+        
+        h1 { 
+            color: var(--primary-color);
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        h2 { 
+            color: var(--secondary-color); 
+            margin-top: 40px; 
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        
+        .last-updated { 
+            color: var(--gray); 
+            font-style: italic; 
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 18px;
+        }
+        
+        .section { 
+            margin-bottom: 30px; 
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .important { 
+            background: linear-gradient(145deg, #fff 0%, #f8f0f4 100%);
+            padding: 20px; 
+            border: 2px solid var(--primary-color);
+            border-radius: 15px; 
+            margin: 20px 0; 
+        }
+        
+        ul {
+            margin-left: 20px;
+        }
+        
+        ul li {
+            margin-bottom: 8px;
+        }
+        
+        strong {
+            color: var(--secondary-color);
+        }
+        
+        /* Footer */
+        footer { 
+            background: var(--dark); 
+            color: white; 
+            padding: 40px 20px; 
+            text-align: center; 
+            margin-top: 50px;
+        }
+        .footer-links { 
+            margin: 20px 0; 
+        }
+        .footer-links a { 
+            color: white; 
+            text-decoration: none; 
+            margin: 0 15px; 
+            transition: color 0.3s;
+        }
+        .footer-links a:hover { 
+            color: var(--primary-color); 
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links a { margin-left: 15px; }
+            .logo { font-size: 20px; }
+            .logo img { height: 35px; }
+            main { margin-top: 80px; padding: 15px; }
+            h1 { font-size: 28px; }
+            h2 { font-size: 20px; }
+        }
     </style>
 </head>
 <body>
-    <h1>TeamPulse Terms of Service</h1>
-    <p class="last-updated">Effective Date: June 10, 2025</p>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="TeamPulse">
+                TeamPulse
+            </a>
+            <div class="nav-links">
+                <a href="index.html#features">Características</a>
+                <a href="index.html#pricing">Precios</a>
+                <a href="support.html">Soporte</a>
+                <a href="index.html#pricing">Comenzar</a>
+            </div>
+        </nav>
+    </header>
 
-    <div class="section">
-        <h2>1. Acceptance of Terms</h2>
-        <p>By accessing or using TeamPulse through Microsoft Teams, you agree to these Terms of Service. If you are using TeamPulse on behalf of an organization, you represent that you have authority to bind that organization.</p>
-    </div>
+    <main>
+        <h1>Términos de Servicio de TeamPulse</h1>
+        <p class="last-updated">Fecha Efectiva: 10 de Junio, 2025</p>
 
-    <div class="section">
-        <h2>2. Service Description</h2>
-        <p>TeamPulse is a survey and feedback management application for Microsoft Teams that enables organizations to:</p>
-        <ul>
-            <li>Create and distribute surveys within Teams</li>
-            <li>Collect anonymous responses</li>
-            <li>Generate insights and analytics</li>
-            <li>Track engagement metrics</li>
-        </ul>
-    </div>
-
-    <div class="section">
-        <h2>3. Subscription Plans</h2>
-        <div class="important">
-            <p><strong>Free Plan:</strong> Up to 50 responses per survey, 1 survey per week</p>
-            <p><strong>Professional Plan ($4/user/month):</strong> Unlimited surveys and responses, advanced analytics</p>
-            <p><strong>Enterprise Plan ($8/user/month):</strong> All Professional features plus custom branding, priority support</p>
+        <div class="section">
+            <h2>1. Aceptación de Términos</h2>
+            <p>Al acceder o usar TeamPulse a través de Microsoft Teams, aceptas estos Términos de Servicio. Si estás usando TeamPulse en nombre de una organización, declaras que tienes autoridad para comprometer a esa organización.</p>
         </div>
-        <p>All payments are processed through Microsoft AppSource. Prices exclude applicable taxes.</p>
-    </div>
 
-    <div class="section">
-        <h2>4. User Responsibilities</h2>
-        <p>You agree to:</p>
-        <ul>
-            <li>Use TeamPulse in compliance with all applicable laws</li>
-            <li>Not use the service for illegal, harmful, or offensive surveys</li>
-            <li>Respect participant privacy and anonymity</li>
-            <li>Not attempt to identify anonymous respondents</li>
-            <li>Maintain the confidentiality of your account credentials</li>
-        </ul>
-    </div>
+        <div class="section">
+            <h2>2. Descripción del Servicio</h2>
+            <p>TeamPulse es una aplicación de gestión de encuestas y feedback para Microsoft Teams que permite a las organizaciones:</p>
+            <ul>
+                <li>Crear y distribuir encuestas dentro de Teams</li>
+                <li>Recopilar respuestas anónimas</li>
+                <li>Generar insights y análisis</li>
+                <li>Hacer seguimiento de métricas de participación</li>
+            </ul>
+        </div>
 
-    <div class="section">
-        <h2>5. Intellectual Property</h2>
-        <p>You retain ownership of your survey content and data. You grant us a limited license to process and display your content as necessary to provide the service. TeamPulse and its features are protected by intellectual property laws.</p>
-    </div>
+        <div class="section">
+            <h2>3. Planes de Suscripción</h2>
+            <div class="important">
+                <p><strong>Plan Gratuito:</strong> Hasta 50 respuestas por encuesta, 1 encuesta por semana</p>
+                <p><strong>Plan Profesional ($4/usuario/mes):</strong> Encuestas y respuestas ilimitadas, análisis avanzados</p>
+                <p><strong>Plan Empresarial ($8/usuario/mes):</strong> Todas las características Profesionales más marca personalizada, soporte prioritario</p>
+            </div>
+            <p>Todos los pagos se procesan a través de Microsoft AppSource. Los precios excluyen impuestos aplicables.</p>
+        </div>
 
-    <div class="section">
-        <h2>6. Data Processing</h2>
-        <p>We process data as described in our Privacy Policy. Survey responses are anonymized and cannot be traced back to individual respondents. We do not sell or share your data with third parties for marketing purposes.</p>
-    </div>
+        <div class="section">
+            <h2>4. Responsabilidades del Usuario</h2>
+            <p>Aceptas:</p>
+            <ul>
+                <li>Usar TeamPulse en cumplimiento con todas las leyes aplicables</li>
+                <li>No usar el servicio para encuestas ilegales, dañinas u ofensivas</li>
+                <li>Respetar la privacidad y anonimato de los participantes</li>
+                <li>No intentar identificar a participantes anónimos</li>
+                <li>Mantener la confidencialidad de las credenciales de tu cuenta</li>
+            </ul>
+        </div>
 
-    <div class="section">
-        <h2>7. Service Level Agreement</h2>
-        <p>We strive for 99.9% uptime. Scheduled maintenance will be communicated in advance. We are not liable for disruptions caused by Microsoft Teams or Azure services.</p>
-    </div>
+        <div class="section">
+            <h2>5. Propiedad Intelectual</h2>
+            <p>Retienes la propiedad de tu contenido de encuestas y datos. Nos otorgas una licencia limitada para procesar y mostrar tu contenido según sea necesario para proporcionar el servicio. TeamPulse y sus características están protegidas por leyes de propiedad intelectual.</p>
+        </div>
 
-    <div class="section">
-        <h2>8. Limitation of Liability</h2>
-        <p>TO THE MAXIMUM EXTENT PERMITTED BY LAW, TEAMPULSE SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, OR CONSEQUENTIAL DAMAGES. OUR TOTAL LIABILITY SHALL NOT EXCEED THE AMOUNT PAID FOR THE SERVICE IN THE 12 MONTHS PRECEDING THE CLAIM.</p>
-    </div>
+        <div class="section">
+            <h2>6. Procesamiento de Datos</h2>
+            <p>Procesamos datos como se describe en nuestra Política de Privacidad. Las respuestas de encuestas se anonimizan y no pueden rastrearse hasta participantes individuales. No vendemos ni compartimos tus datos con terceros para fines de marketing.</p>
+        </div>
 
-    <div class="section">
-        <h2>9. Termination</h2>
-        <p>You may cancel your subscription at any time through Microsoft AppSource. We reserve the right to suspend or terminate accounts that violate these terms. Upon termination, your data will be available for export for 90 days.</p>
-    </div>
+        <div class="section">
+            <h2>7. Acuerdo de Nivel de Servicio</h2>
+            <p>Nos esforzamos por un 99.9% de tiempo activo. El mantenimiento programado se comunicará con anticipación. No somos responsables por interrupciones causadas por Microsoft Teams o servicios de Azure.</p>
+        </div>
 
-    <div class="section">
-        <h2>10. Changes to Terms</h2>
-        <p>We may update these terms with 30 days notice. Continued use after changes constitutes acceptance of new terms.</p>
-    </div>
+        <div class="section">
+            <h2>8. Limitación de Responsabilidad</h2>
+            <p>HASTA EL MÁXIMO PERMITIDO POR LA LEY, TEAMPULSE NO SERÁ RESPONSABLE DE NINGÚN DAÑO INDIRECTO, INCIDENTAL, ESPECIAL O CONSECUENTE. NUESTRA RESPONSABILIDAD TOTAL NO EXCEDERÁ LA CANTIDAD PAGADA POR EL SERVICIO EN LOS 12 MESES PREVIOS A LA RECLAMACIÓN.</p>
+        </div>
 
-    <div class="section">
-        <h2>11. Governing Law</h2>
-        <p>These terms are governed by the laws of Argentina. Any disputes shall be resolved in the courts of Buenos Aires.</p>
-    </div>
+        <div class="section">
+            <h2>9. Terminación</h2>
+            <p>Puedes cancelar tu suscripción en cualquier momento a través de Microsoft AppSource. Nos reservamos el derecho de suspender o terminar cuentas que violen estos términos. Al terminar, tus datos estarán disponibles para exportación por 90 días.</p>
+        </div>
 
-    <div class="section">
-        <h2>12. Contact</h2>
-        <p>For questions about these terms:<br>
-        Email: legal@incumate.io<br>
-        Company: INCUBA CONSULTORES S.A.</p>
-    </div>
+        <div class="section">
+            <h2>10. Cambios a los Términos</h2>
+            <p>Podemos actualizar estos términos con 30 días de aviso. El uso continuado después de los cambios constituye aceptación de los nuevos términos.</p>
+        </div>
+
+        <div class="section">
+            <h2>11. Ley Aplicable</h2>
+            <p>Estos términos se rigen por las leyes de Argentina. Cualquier disputa se resolverá en los tribunales de Buenos Aires.</p>
+        </div>
+
+        <div class="section">
+            <h2>12. Contacto</h2>
+            <p>Para preguntas sobre estos términos:<br>
+            <strong>Email:</strong> legal@incumate.io<br>
+            <strong>Empresa:</strong> INCUBA CONSULTORES S.A.</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 INCUBA CONSULTORES S.A. Todos los derechos reservados.</p>
+        <div class="footer-links">
+            <a href="privacy.html">📋 Política de Privacidad</a>
+            <a href="terms.html">📄 Términos de Servicio</a>
+            <a href="eula.html">⚖️ Acuerdo de Licencia</a>
+            <a href="support.html">🛠️ Soporte</a>
+            <a href="mailto:contact@incumate.io">✉️ Contacto</a>
+        </div>
+        <p style="margin-top: 20px; color: #ccc; font-size: 14px;">
+            TeamPulse es una marca registrada de INCUBA CONSULTORES S.A.<br>
+            Todos los documentos legales actualizados para cumplimiento con Microsoft Teams App Store.
+        </p>
+    </footer>
 </body>
 </html>

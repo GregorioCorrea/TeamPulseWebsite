@@ -1,95 +1,261 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TeamPulse - Anonymous Surveys for Microsoft Teams</title>
+    <title>TeamPulse - Encuestas Anónimas para Microsoft Teams</title>
+    <link rel="icon" type="image/png" href="logo.png">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #333; }
         
+        /* Paleta de colores basada en el logo */
+        :root {
+            --primary-color: #E91E63; /* Rosa/fucsia del logo */
+            --secondary-color: #673AB7; /* Morado del logo */
+            --gradient: linear-gradient(135deg, #E91E63 0%, #673AB7 100%);
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --gray: #666;
+            --dark: #333;
+        }
+        
         /* Header */
-        header { background: #0078d4; color: white; padding: 20px 0; position: fixed; width: 100%; top: 0; z-index: 1000; }
-        nav { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 24px; font-weight: bold; }
-        .nav-links a { color: white; text-decoration: none; margin-left: 30px; }
+        header { 
+            background: var(--gradient); 
+            color: white; 
+            padding: 15px 0; 
+            position: fixed; 
+            width: 100%; 
+            top: 0; 
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        nav { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 0 20px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .logo { 
+            display: flex; 
+            align-items: center; 
+            font-size: 24px; 
+            font-weight: bold; 
+        }
+        .logo img { 
+            height: 40px; 
+            margin-right: 10px; 
+        }
+        .nav-links a { 
+            color: white; 
+            text-decoration: none; 
+            margin-left: 30px; 
+            transition: opacity 0.3s;
+        }
+        .nav-links a:hover { 
+            opacity: 0.8; 
+        }
         
         /* Hero Section */
-        .hero { background: linear-gradient(135deg, #0078d4 0%, #106ebe 100%); color: white; padding: 150px 20px 80px; text-align: center; }
-        .hero h1 { font-size: 48px; margin-bottom: 20px; }
-        .hero p { font-size: 20px; margin-bottom: 30px; }
-        .cta-button { display: inline-block; background: white; color: #0078d4; padding: 15px 40px; text-decoration: none; border-radius: 4px; font-weight: bold; font-size: 18px; }
+        .hero { 
+            background: var(--gradient); 
+            color: white; 
+            padding: 150px 20px 80px; 
+            text-align: center; 
+        }
+        .hero h1 { 
+            font-size: 48px; 
+            margin-bottom: 20px; 
+        }
+        .hero p { 
+            font-size: 20px; 
+            margin-bottom: 30px; 
+        }
+        .cta-button { 
+            display: inline-block; 
+            background: white; 
+            color: var(--primary-color); 
+            padding: 15px 40px; 
+            text-decoration: none; 
+            border-radius: 25px; 
+            font-weight: bold; 
+            font-size: 18px; 
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
         
         /* Features */
-        .features { padding: 80px 20px; background: #f8f9fa; }
-        .container { max-width: 1200px; margin: 0 auto; }
-        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 50px; }
-        .feature { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .feature h3 { color: #0078d4; margin-bottom: 15px; }
+        .features { 
+            padding: 80px 20px; 
+            background: var(--light-bg); 
+        }
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
+        .section-title {
+            text-align: center; 
+            font-size: 36px; 
+            margin-bottom: 20px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .features-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 40px; 
+            margin-top: 50px; 
+        }
+        .feature { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 15px; 
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1); 
+            transition: transform 0.3s;
+        }
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+        .feature h3 { 
+            color: var(--primary-color); 
+            margin-bottom: 15px; 
+            font-size: 22px;
+        }
         
         /* Pricing */
-        .pricing { padding: 80px 20px; }
-        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 50px; }
-        .price-card { background: white; border: 2px solid #e0e0e0; padding: 40px; border-radius: 8px; text-align: center; position: relative; }
-        .price-card.featured { border-color: #0078d4; transform: scale(1.05); }
-        .price-card h3 { font-size: 24px; margin-bottom: 20px; }
-        .price { font-size: 36px; color: #0078d4; margin: 20px 0; }
-        .price-features { list-style: none; margin: 30px 0; }
-        .price-features li { padding: 10px 0; border-bottom: 1px solid #eee; }
+        .pricing { 
+            padding: 80px 20px; 
+        }
+        .pricing-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 30px; 
+            margin-top: 50px; 
+        }
+        .price-card { 
+            background: white; 
+            border: 2px solid #e0e0e0; 
+            padding: 40px; 
+            border-radius: 15px; 
+            text-align: center; 
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .price-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .price-card.featured { 
+            border: 2px solid var(--primary-color);
+            background: linear-gradient(145deg, #fff 0%, #fdf7fa 100%);
+        }
+        .price-card h3 { 
+            font-size: 24px; 
+            margin-bottom: 20px; 
+            color: var(--dark);
+        }
+        .price { 
+            font-size: 36px; 
+            color: var(--primary-color); 
+            margin: 20px 0; 
+            font-weight: bold;
+        }
+        .price-features { 
+            list-style: none; 
+            margin: 30px 0; 
+        }
+        .price-features li { 
+            padding: 10px 0; 
+            border-bottom: 1px solid #eee; 
+        }
         
         /* Footer */
-        footer { background: #333; color: white; padding: 40px 20px; text-align: center; }
-        .footer-links { margin: 20px 0; }
-        .footer-links a { color: white; text-decoration: none; margin: 0 15px; }
-        .footer-links a:hover { text-decoration: underline; }
+        footer { 
+            background: var(--dark); 
+            color: white; 
+            padding: 40px 20px; 
+            text-align: center; 
+        }
+        .footer-links { 
+            margin: 20px 0; 
+        }
+        .footer-links a { 
+            color: white; 
+            text-decoration: none; 
+            margin: 0 15px; 
+            transition: color 0.3s;
+        }
+        .footer-links a:hover { 
+            color: var(--primary-color); 
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 36px; }
+            .hero p { font-size: 18px; }
+            .nav-links a { margin-left: 15px; }
+            .logo { font-size: 20px; }
+            .logo img { height: 35px; }
+        }
     </style>
 </head>
 <body>
     <header>
         <nav>
-            <div class="logo">🎯 TeamPulse</div>
+            <div class="logo">
+                <img src="logo.png" alt="TeamPulse">
+                TeamPulse
+            </div>
             <div class="nav-links">
-                <a href="#features">Features</a>
-                <a href="#pricing">Pricing</a>
-                <a href="/support.html">Support</a>
-                <a href="#">Get Started</a>
+                <a href="#features">Características</a>
+                <a href="#pricing">Precios</a>
+                <a href="support.html">Soporte</a>
+                <a href="#pricing">Comenzar</a>
             </div>
         </nav>
     </header>
 
     <section class="hero">
-        <h1>Anonymous Surveys for Microsoft Teams</h1>
-        <p>Create, distribute, and analyze employee feedback with complete anonymity</p>
-        <a href="#" class="cta-button">Install from AppSource</a>
+        <h1>Encuestas Anónimas para Microsoft Teams</h1>
+        <p>Crea, distribuye y analiza feedback de empleados con completo anonimato</p>
+        <a href="#pricing" class="cta-button">Instalar desde AppSource</a>
     </section>
 
     <section class="features" id="features">
         <div class="container">
-            <h2 style="text-align: center; font-size: 36px; margin-bottom: 20px;">Why TeamPulse?</h2>
+            <h2 class="section-title">¿Por qué TeamPulse?</h2>
             <div class="features-grid">
                 <div class="feature">
-                    <h3>🔒 True Anonymity</h3>
-                    <p>Cryptographic hashing ensures responses can never be traced back to individuals, encouraging honest feedback.</p>
+                    <h3>🔒 Verdadero Anonimato</h3>
+                    <p>El hash criptográfico asegura que las respuestas nunca puedan rastrearse hasta individuos específicos, fomentando feedback honesto.</p>
                 </div>
                 <div class="feature">
-                    <h3>🤖 AI-Powered Creation</h3>
-                    <p>Create professional surveys in seconds with Azure OpenAI assistance. Just describe what you need.</p>
+                    <h3>🤖 Creación con IA</h3>
+                    <p>Crea encuestas profesionales en segundos con la asistencia de Azure OpenAI. Solo describe lo que necesitas.</p>
                 </div>
                 <div class="feature">
-                    <h3>📊 Instant Analytics</h3>
-                    <p>Real-time results with visual charts and AI-generated insights to help you make data-driven decisions.</p>
+                    <h3>📊 Análisis Instantáneo</h3>
+                    <p>Resultados en tiempo real con gráficos visuales e insights generados por IA para ayudarte a tomar decisiones basadas en datos.</p>
                 </div>
                 <div class="feature">
-                    <h3>🎯 Native Teams Integration</h3>
-                    <p>Works seamlessly within Microsoft Teams. No external apps or logins required.</p>
+                    <h3>🎯 Integración Nativa con Teams</h3>
+                    <p>Funciona perfectamente dentro de Microsoft Teams. No se requieren apps externas o inicios de sesión adicionales.</p>
                 </div>
                 <div class="feature">
-                    <h3>📋 Professional Templates</h3>
-                    <p>Pre-built templates for employee satisfaction, NPS, training feedback, and more.</p>
+                    <h3>📋 Plantillas Profesionales</h3>
+                    <p>Plantillas prediseñadas para satisfacción de empleados, NPS, feedback de capacitación y mucho más.</p>
                 </div>
                 <div class="feature">
-                    <h3>☁️ Enterprise Security</h3>
-                    <p>Built on Azure with enterprise-grade security, encryption, and compliance.</p>
+                    <h3>☁️ Seguridad Empresarial</h3>
+                    <p>Construido en Azure con seguridad, encriptación y cumplimiento de nivel empresarial.</p>
                 </div>
             </div>
         </div>
@@ -97,67 +263,67 @@
 
     <section class="pricing" id="pricing">
         <div class="container">
-            <h2 style="text-align: center; font-size: 36px; margin-bottom: 20px;">Simple, Transparent Pricing</h2>
+            <h2 class="section-title">Precios Simples y Transparentes</h2>
             <div class="pricing-grid">
                 <div class="price-card">
-                    <h3>Free</h3>
+                    <h3>Gratuito</h3>
                     <div class="price">$0</div>
-                    <p>Perfect for small teams</p>
+                    <p>Perfecto para equipos pequeños</p>
                     <ul class="price-features">
-                        <li>50 responses per survey</li>
-                        <li>1 survey per week</li>
-                        <li>Basic analytics</li>
-                        <li>3 templates</li>
-                        <li>Community support</li>
+                        <li>50 respuestas por encuesta</li>
+                        <li>1 encuesta por semana</li>
+                        <li>Análisis básicos</li>
+                        <li>3 plantillas</li>
+                        <li>Soporte de la comunidad</li>
                     </ul>
-                    <a href="#" class="cta-button">Get Started</a>
+                    <a href="#" class="cta-button">Comenzar</a>
                 </div>
                 
                 <div class="price-card featured">
-                    <h3>Professional</h3>
-                    <div class="price">$4<span style="font-size: 18px;">/user/month</span></div>
-                    <p>For growing organizations</p>
+                    <h3>Profesional</h3>
+                    <div class="price">$4<span style="font-size: 18px;">/usuario/mes</span></div>
+                    <p>Para organizaciones en crecimiento</p>
                     <ul class="price-features">
-                        <li>Unlimited responses</li>
-                        <li>Unlimited surveys</li>
-                        <li>Advanced analytics</li>
-                        <li>All templates</li>
-                        <li>Excel export</li>
-                        <li>Email support</li>
+                        <li>Respuestas ilimitadas</li>
+                        <li>Encuestas ilimitadas</li>
+                        <li>Análisis avanzados</li>
+                        <li>Todas las plantillas</li>
+                        <li>Exportación a Excel</li>
+                        <li>Soporte por email</li>
                     </ul>
-                    <a href="#" class="cta-button">Start Free Trial</a>
+                    <a href="#" class="cta-button">Prueba Gratuita</a>
                 </div>
                 
                 <div class="price-card">
-                    <h3>Enterprise</h3>
-                    <div class="price">$8<span style="font-size: 18px;">/user/month</span></div>
-                    <p>For large enterprises</p>
+                    <h3>Empresarial</h3>
+                    <div class="price">$8<span style="font-size: 18px;">/usuario/mes</span></div>
+                    <p>Para grandes empresas</p>
                     <ul class="price-features">
-                        <li>Everything in Professional</li>
-                        <li>Custom branding</li>
-                        <li>Power BI integration</li>
-                        <li>Admin dashboard</li>
-                        <li>Priority support</li>
-                        <li>Custom templates</li>
+                        <li>Todo en Profesional</li>
+                        <li>Marca personalizada</li>
+                        <li>Integración Power BI</li>
+                        <li>Panel de administración</li>
+                        <li>Soporte prioritario</li>
+                        <li>Plantillas personalizadas</li>
                     </ul>
-                    <a href="#" class="cta-button">Contact Sales</a>
+                    <a href="#" class="cta-button">Contactar Ventas</a>
                 </div>
             </div>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2025 INCUBA CONSULTORES S.A. All rights reserved.</p>
+        <p>&copy; 2025 INCUBA CONSULTORES S.A. Todos los derechos reservados.</p>
         <div class="footer-links">
-            <a href="/privacy.html">📋 Privacy Policy</a>
-            <a href="/terms.html">📄 Terms of Service</a>
-            <a href="/eula.html">⚖️ End User License Agreement</a>
-            <a href="/support.html">🛠️ Support</a>
-            <a href="mailto:contact@incumate.io">✉️ Contact</a>
+            <a href="privacy.html">📋 Política de Privacidad</a>
+            <a href="terms.html">📄 Términos de Servicio</a>
+            <a href="eula.html">⚖️ Acuerdo de Licencia</a>
+            <a href="support.html">🛠️ Soporte</a>
+            <a href="mailto:contact@incumate.io">✉️ Contacto</a>
         </div>
         <p style="margin-top: 20px; color: #ccc; font-size: 14px;">
-            TeamPulse is a registered trademark of INCUBA CONSULTORES S.A.<br>
-            All legal documents updated for Microsoft Teams App Store compliance.
+            TeamPulse es una marca registrada de INCUBA CONSULTORES S.A.<br>
+            Todos los documentos legales actualizados para cumplimiento con Microsoft Teams App Store.
         </p>
     </footer>
 </body>

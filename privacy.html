@@ -1,84 +1,247 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TeamPulse - Privacy Policy</title>
+    <title>TeamPulse - Política de Privacidad</title>
+    <link rel="icon" type="image/png" href="logo.png">
     <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 20px; }
-        h1 { color: #0078d4; }
-        h2 { color: #106ebe; margin-top: 30px; }
-        .last-updated { color: #666; font-style: italic; }
-        .section { margin-bottom: 25px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #333; }
+        
+        /* Paleta de colores basada en el logo */
+        :root {
+            --primary-color: #E91E63;
+            --secondary-color: #673AB7;
+            --gradient: linear-gradient(135deg, #E91E63 0%, #673AB7 100%);
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --gray: #666;
+            --dark: #333;
+        }
+        
+        /* Header */
+        header { 
+            background: var(--gradient); 
+            color: white; 
+            padding: 15px 0; 
+            position: fixed; 
+            width: 100%; 
+            top: 0; 
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        nav { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 0 20px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .logo { 
+            display: flex; 
+            align-items: center; 
+            font-size: 24px; 
+            font-weight: bold; 
+            text-decoration: none;
+            color: white;
+        }
+        .logo img { 
+            height: 40px; 
+            margin-right: 10px; 
+        }
+        .nav-links a { 
+            color: white; 
+            text-decoration: none; 
+            margin-left: 30px; 
+            transition: opacity 0.3s;
+        }
+        .nav-links a:hover { 
+            opacity: 0.8; 
+        }
+        
+        /* Main Content */
+        main {
+            max-width: 800px;
+            margin: 100px auto 0;
+            padding: 20px;
+            min-height: calc(100vh - 200px);
+        }
+        
+        h1 { 
+            color: var(--primary-color);
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        h2 { 
+            color: var(--secondary-color); 
+            margin-top: 40px; 
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        
+        .last-updated { 
+            color: var(--gray); 
+            font-style: italic; 
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 18px;
+        }
+        
+        .section { 
+            margin-bottom: 30px; 
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        ul {
+            margin-left: 20px;
+        }
+        
+        ul li {
+            margin-bottom: 8px;
+        }
+        
+        strong {
+            color: var(--secondary-color);
+        }
+        
+        /* Footer */
+        footer { 
+            background: var(--dark); 
+            color: white; 
+            padding: 40px 20px; 
+            text-align: center; 
+            margin-top: 50px;
+        }
+        .footer-links { 
+            margin: 20px 0; 
+        }
+        .footer-links a { 
+            color: white; 
+            text-decoration: none; 
+            margin: 0 15px; 
+            transition: color 0.3s;
+        }
+        .footer-links a:hover { 
+            color: var(--primary-color); 
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links a { margin-left: 15px; }
+            .logo { font-size: 20px; }
+            .logo img { height: 35px; }
+            main { margin-top: 80px; padding: 15px; }
+            h1 { font-size: 28px; }
+            h2 { font-size: 20px; }
+        }
     </style>
 </head>
 <body>
-    <h1>TeamPulse Privacy Policy</h1>
-    <p class="last-updated">Last Updated: June 10, 2025</p>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="TeamPulse">
+                TeamPulse
+            </a>
+            <div class="nav-links">
+                <a href="index.html#features">Características</a>
+                <a href="index.html#pricing">Precios</a>
+                <a href="support.html">Soporte</a>
+                <a href="index.html#pricing">Comenzar</a>
+            </div>
+        </nav>
+    </header>
 
-    <div class="section">
-        <h2>1. Information We Collect</h2>
-        <p><strong>Account Information:</strong> When you subscribe through Microsoft AppSource, we receive your organization name, email, and Microsoft tenant ID.</p>
-        <p><strong>Survey Data:</strong> We store survey questions, response options, and anonymized participant responses. Individual responses are anonymized using cryptographic hashing.</p>
-        <p><strong>Usage Data:</strong> We collect usage metrics such as number of surveys created, response rates, and feature usage to improve our service.</p>
-    </div>
+    <main>
+        <h1>Política de Privacidad de TeamPulse</h1>
+        <p class="last-updated">Última Actualización: 10 de Junio, 2025</p>
 
-    <div class="section">
-        <h2>2. How We Use Your Information</h2>
-        <ul>
-            <li>To provide and operate the TeamPulse service</li>
-            <li>To process your subscription and payments through Microsoft</li>
-            <li>To generate anonymous analytics and insights from survey data</li>
-            <li>To send service-related communications</li>
-            <li>To improve our products and develop new features</li>
-        </ul>
-    </div>
+        <div class="section">
+            <h2>1. Información que Recopilamos</h2>
+            <p><strong>Información de Cuenta:</strong> Cuando te suscribes a través de Microsoft AppSource, recibimos el nombre de tu organización, email e ID de tenant de Microsoft.</p>
+            <p><strong>Datos de Encuestas:</strong> Almacenamos preguntas de encuestas, opciones de respuesta y respuestas de participantes anonimizadas. Las respuestas individuales se anonimizan usando hash criptográfico.</p>
+            <p><strong>Datos de Uso:</strong> Recopilamos métricas de uso como número de encuestas creadas, tasas de respuesta y uso de características para mejorar nuestro servicio.</p>
+        </div>
 
-    <div class="section">
-        <h2>3. Data Storage and Security</h2>
-        <p>All data is stored in Microsoft Azure data centers with enterprise-grade security:</p>
-        <ul>
-            <li>Data encrypted at rest using Azure Storage Service Encryption</li>
-            <li>Data encrypted in transit using TLS 1.2+</li>
-            <li>Access controlled through Azure Active Directory</li>
-            <li>Regular security audits and compliance monitoring</li>
-        </ul>
-    </div>
+        <div class="section">
+            <h2>2. Cómo Utilizamos tu Información</h2>
+            <ul>
+                <li>Para proporcionar y operar el servicio TeamPulse</li>
+                <li>Para procesar tu suscripción y pagos a través de Microsoft</li>
+                <li>Para generar análisis e insights anónimos de datos de encuestas</li>
+                <li>Para enviar comunicaciones relacionadas con el servicio</li>
+                <li>Para mejorar nuestros productos y desarrollar nuevas características</li>
+            </ul>
+        </div>
 
-    <div class="section">
-        <h2>4. Data Retention</h2>
-        <p>Survey data is retained for the duration of your subscription plus 90 days. After subscription cancellation, you may request immediate deletion of your data.</p>
-    </div>
+        <div class="section">
+            <h2>3. Almacenamiento y Seguridad de Datos</h2>
+            <p>Todos los datos se almacenan en centros de datos de Microsoft Azure con seguridad de nivel empresarial:</p>
+            <ul>
+                <li>Datos encriptados en reposo usando Azure Storage Service Encryption</li>
+                <li>Datos encriptados en tránsito usando TLS 1.2+</li>
+                <li>Acceso controlado a través de Azure Active Directory</li>
+                <li>Auditorías de seguridad regulares y monitoreo de cumplimiento</li>
+            </ul>
+        </div>
 
-    <div class="section">
-        <h2>5. GDPR Compliance</h2>
-        <p>We comply with GDPR requirements including:</p>
-        <ul>
-            <li>Right to access your personal data</li>
-            <li>Right to correct inaccurate data</li>
-            <li>Right to delete your data</li>
-            <li>Right to data portability</li>
-            <li>Right to object to processing</li>
-        </ul>
-        <p>To exercise these rights, contact us at privacy@incumate.io</p>
-    </div>
+        <div class="section">
+            <h2>4. Retención de Datos</h2>
+            <p>Los datos de encuestas se retienen durante la duración de tu suscripción más 90 días. Después de la cancelación de la suscripción, puedes solicitar la eliminación inmediata de tus datos.</p>
+        </div>
 
-    <div class="section">
-        <h2>6. Third-Party Services</h2>
-        <p>We use the following third-party services:</p>
-        <ul>
-            <li><strong>Microsoft Azure:</strong> Cloud infrastructure and data storage</li>
-            <li><strong>Microsoft Teams:</strong> Application platform</li>
-            <li><strong>Azure OpenAI:</strong> Survey creation assistance (no survey responses are shared)</li>
-        </ul>
-    </div>
+        <div class="section">
+            <h2>5. Cumplimiento GDPR</h2>
+            <p>Cumplimos con los requisitos GDPR incluyendo:</p>
+            <ul>
+                <li>Derecho a acceder a tus datos personales</li>
+                <li>Derecho a corregir datos inexactos</li>
+                <li>Derecho a eliminar tus datos</li>
+                <li>Derecho a la portabilidad de datos</li>
+                <li>Derecho a objetar el procesamiento</li>
+            </ul>
+            <p>Para ejercer estos derechos, contáctanos en privacy@incumate.io</p>
+        </div>
 
-    <div class="section">
-        <h2>7. Contact Information</h2>
-        <p>For privacy concerns or data requests:</p>
-        <p>Email: privacy@incumate.io<br>
-        Company: INCUBA CONSULTORES S.A.<br>
-        Address: San Martín 551 of 71 - C1002AAQ - Ciudad de Buenos Aires, Argentina</p>
-    </div>
+        <div class="section">
+            <h2>6. Servicios de Terceros</h2>
+            <p>Utilizamos los siguientes servicios de terceros:</p>
+            <ul>
+                <li><strong>Microsoft Azure:</strong> Infraestructura en la nube y almacenamiento de datos</li>
+                <li><strong>Microsoft Teams:</strong> Plataforma de aplicaciones</li>
+                <li><strong>Azure OpenAI:</strong> Asistencia para creación de encuestas (no se comparten respuestas de encuestas)</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>7. Información de Contacto</h2>
+            <p>Para inquietudes de privacidad o solicitudes de datos:</p>
+            <p><strong>Email:</strong> privacy@incumate.io<br>
+            <strong>Empresa:</strong> INCUBA CONSULTORES S.A.<br>
+            <strong>Dirección:</strong> San Martín 551 of 71 - C1002AAQ - Ciudad de Buenos Aires, Argentina</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 INCUBA CONSULTORES S.A. Todos los derechos reservados.</p>
+        <div class="footer-links">
+            <a href="privacy.html">📋 Política de Privacidad</a>
+            <a href="terms.html">📄 Términos de Servicio</a>
+            <a href="eula.html">⚖️ Acuerdo de Licencia</a>
+            <a href="support.html">🛠️ Soporte</a>
+            <a href="mailto:contact@incumate.io">✉️ Contacto</a>
+        </div>
+        <p style="margin-top: 20px; color: #ccc; font-size: 14px;">
+            TeamPulse es una marca registrada de INCUBA CONSULTORES S.A.<br>
+            Todos los documentos legales actualizados para cumplimiento con Microsoft Teams App Store.
+        </p>
+    </footer>
 </body>
 </html>

@@ -1,107 +1,315 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TeamPulse - Support</title>
+    <title>TeamPulse - Centro de Soporte</title>
+    <link rel="icon" type="image/png" href="logo.png">
     <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 20px; }
-        h1 { color: #0078d4; }
-        h2 { color: #106ebe; margin-top: 30px; }
-        .faq { background: #f8f9fa; padding: 20px; margin: 15px 0; border-radius: 8px; }
-        .faq h3 { margin-top: 0; color: #0078d4; }
-        .contact-box { background: #e1f5fe; padding: 25px; border-radius: 8px; margin: 30px 0; }
-        .publisher-box { background: #f3e5f5; padding: 25px; border-radius: 8px; margin: 30px 0; border-left: 4px solid #9c27b0; }
-        .button { display: inline-block; background: #0078d4; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #333; }
+        
+        /* Paleta de colores basada en el logo */
+        :root {
+            --primary-color: #E91E63;
+            --secondary-color: #673AB7;
+            --gradient: linear-gradient(135deg, #E91E63 0%, #673AB7 100%);
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --gray: #666;
+            --dark: #333;
+        }
+        
+        /* Header */
+        header { 
+            background: var(--gradient); 
+            color: white; 
+            padding: 15px 0; 
+            position: fixed; 
+            width: 100%; 
+            top: 0; 
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        nav { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 0 20px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .logo { 
+            display: flex; 
+            align-items: center; 
+            font-size: 24px; 
+            font-weight: bold; 
+            text-decoration: none;
+            color: white;
+        }
+        .logo img { 
+            height: 40px; 
+            margin-right: 10px; 
+        }
+        .nav-links a { 
+            color: white; 
+            text-decoration: none; 
+            margin-left: 30px; 
+            transition: opacity 0.3s;
+        }
+        .nav-links a:hover { 
+            opacity: 0.8; 
+        }
+        
+        /* Main Content */
+        main {
+            max-width: 800px;
+            margin: 100px auto 0;
+            padding: 20px;
+            min-height: calc(100vh - 200px);
+        }
+        
+        h1 { 
+            color: var(--primary-color);
+            font-size: 36px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        h2 { 
+            color: var(--secondary-color); 
+            margin-top: 40px; 
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        
+        .faq { 
+            background: white; 
+            padding: 25px; 
+            margin: 20px 0; 
+            border-radius: 15px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--primary-color);
+        }
+        .faq h3 { 
+            margin-top: 0; 
+            color: var(--primary-color); 
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .contact-box { 
+            background: linear-gradient(145deg, #fff 0%, #f8f0f4 100%);
+            padding: 30px; 
+            border-radius: 15px; 
+            margin: 30px 0; 
+            border: 2px solid var(--primary-color);
+            text-align: center;
+        }
+        
+        .publisher-box { 
+            background: linear-gradient(145deg, #fff 0%, #f3e8f8 100%);
+            padding: 30px; 
+            border-radius: 15px; 
+            margin: 30px 0; 
+            border-left: 6px solid var(--secondary-color);
+        }
+        
+        .button { 
+            display: inline-block; 
+            background: var(--gradient);
+            color: white; 
+            padding: 12px 25px; 
+            text-decoration: none; 
+            border-radius: 25px; 
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        ul {
+            margin-left: 20px;
+        }
+        
+        ul li {
+            margin-bottom: 8px;
+        }
+        
+        code {
+            background: var(--light-bg);
+            padding: 4px 8px;
+            border-radius: 5px;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        /* Footer */
+        footer { 
+            background: var(--dark); 
+            color: white; 
+            padding: 40px 20px; 
+            text-align: center; 
+            margin-top: 50px;
+        }
+        .footer-links { 
+            margin: 20px 0; 
+        }
+        .footer-links a { 
+            color: white; 
+            text-decoration: none; 
+            margin: 0 15px; 
+            transition: color 0.3s;
+        }
+        .footer-links a:hover { 
+            color: var(--primary-color); 
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links a { margin-left: 15px; }
+            .logo { font-size: 20px; }
+            .logo img { height: 35px; }
+            main { margin-top: 80px; padding: 15px; }
+            h1 { font-size: 28px; }
+            h2 { font-size: 24px; }
+        }
     </style>
 </head>
 <body>
-    <h1>TeamPulse Support Center</h1>
-    
-    <div class="section">
-        <h2>Getting Started</h2>
-        <p>Welcome to TeamPulse! Here's how to get started:</p>
-        <ol>
-            <li>Install TeamPulse from Microsoft AppSource</li>
-            <li>Add the app to your Microsoft Teams</li>
-            <li>Type "ayuda" to see available commands</li>
-            <li>Create your first survey by typing "Quiero crear una encuesta"</li>
-        </ol>
-    </div>
-    <div class="section">
-        <h2>Frequently Asked Questions</h2>
-        
-        <div class="faq">
-            <h3>How do I create a survey?</h3>
-            <p>Simply type in the Teams chat: "Quiero crear una encuesta sobre [topic]" and TeamPulse will guide you through the process.</p>
-        </div>
-        <div class="faq">
-            <h3>Are responses really anonymous?</h3>
-            <p>Yes! We use cryptographic hashing to ensure responses cannot be traced back to individuals. Not even administrators can identify respondents.</p>
-        </div>
-        <div class="faq">
-            <h3>What's included in the free plan?</h3>
-            <p>Free plan includes: 50 responses per survey, 1 survey per week, basic analytics, and all core features.</p>
-        </div>
-        <div class="faq">
-            <h3>How do I upgrade my plan?</h3>
-            <p>Go to Microsoft AppSource, find TeamPulse, and click "Get it now" to manage your subscription.</p>
-        </div>
-        <div class="faq">
-            <h3>Can I export survey results?</h3>
-            <p>Yes! Professional and Enterprise plans include Excel export functionality. Use the command "exportar [survey-id]".</p>
-        </div>
-        <div class="faq">
-            <h3>How do I use templates?</h3>
-            <p>Type "ver_templates" to see available templates, then "usar_template [template-id]" to create a survey from a template.</p>
-        </div>
-    </div>
-    <div class="section">
-        <h2>Available Commands</h2>
-        <ul>
-            <li><code>ayuda</code> - Show help menu</li>
-            <li><code>listar</code> - List all surveys</li>
-            <li><code>responder [id]</code> - Respond to a survey</li>
-            <li><code>resultados [id]</code> - View survey results</li>
-            <li><code>ver_templates</code> - View survey templates</li>
-            <li><code>usar_template [id]</code> - Use a template</li>
-        </ul>
-    </div>
-    <div class="contact-box">
-        <h2>Need More Help?</h2>
-        <p><strong>Email Support:</strong> support@incumate.io</p>
-        <p><strong>Response Time:</strong> Within 24 hours (Professional), Within 4 hours (Enterprise)</p>
-        <p><strong>Languages:</strong> English, Spanish</p>
-        <a href="mailto:support@incumate.io" class="button">Contact Support</a>
-    </div>
-    <div class="section">
-        <h2>System Status</h2>
-        <p>Current Status: <span style="color: green;">? All Systems Operational</span></p>
-        <p>Check <a href="https://status.incumate.io">status.incumate.io</a> for real-time updates.</p>
-    </div>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="TeamPulse">
+                TeamPulse
+            </a>
+            <div class="nav-links">
+                <a href="index.html#features">Características</a>
+                <a href="index.html#pricing">Precios</a>
+                <a href="support.html">Soporte</a>
+                <a href="index.html#pricing">Comenzar</a>
+            </div>
+        </nav>
+    </header>
 
-    <div class="publisher-box">
-        <h2>Publisher Information</h2>
-        <p><strong>Company:</strong> INCUBA CONSULTORES S.A.</p>
-        <p><strong>Microsoft Partner ID:</strong> 4891338</p>
-        <p><strong>Location:</strong> Buenos Aires, Argentina</p>
-        <p><strong>Website:</strong> <a href="https://teampulse.incumate.io">incumate.io</a></p>
-        <br>
-        <p><strong>Specialized Contacts:</strong></p>
-        <ul>
-            <li><strong>Technical Support:</strong> <a href="mailto:support@incumate.io">support@incumate.io</a></li>
-            <li><strong>Security Reports:</strong> <a href="mailto:security@incumate.io">security@incumate.io</a></li>
-            <li><strong>Legal & Compliance:</strong> <a href="mailto:legal@incumate.io">legal@incumate.io</a></li>
-            <li><strong>Privacy Matters:</strong> <a href="mailto:privacy@incumate.io">privacy@incumate.io</a></li>
-        </ul>
-        <br>
-        <p><strong>Technical Infrastructure:</strong></p>
-        <ul>
-            <li>Hosted on Microsoft Azure Cloud</li>
-            <li>Enterprise-grade security and encryption</li>
-            <li>GDPR and privacy compliance</li>
-            <li>99.9% uptime SLA</li>
-        </ul>
-    </div>
+    <main>
+        <h1>Centro de Soporte TeamPulse</h1>
+        
+        <div class="section">
+            <h2>Primeros Pasos</h2>
+            <p>¡Bienvenido a TeamPulse! Así es como puedes comenzar:</p>
+            <ol>
+                <li>Instala TeamPulse desde Microsoft AppSource</li>
+                <li>Agrega la aplicación a tu Microsoft Teams</li>
+                <li>Escribe "ayuda" para ver los comandos disponibles</li>
+                <li>Crea tu primera encuesta escribiendo "Quiero crear una encuesta"</li>
+            </ol>
+        </div>
+
+        <div class="section">
+            <h2>Preguntas Frecuentes</h2>
+            
+            <div class="faq">
+                <h3>¿Cómo creo una encuesta?</h3>
+                <p>Simplemente escribe en el chat de Teams: "Quiero crear una encuesta sobre [tema]" y TeamPulse te guiará a través del proceso.</p>
+            </div>
+
+            <div class="faq">
+                <h3>¿Las respuestas son realmente anónimas?</h3>
+                <p>¡Sí! Utilizamos hash criptográfico para asegurar que las respuestas no puedan rastrearse hasta individuos específicos. Ni siquiera los administradores pueden identificar a los participantes.</p>
+            </div>
+
+            <div class="faq">
+                <h3>¿Qué incluye el plan gratuito?</h3>
+                <p>El plan gratuito incluye: 50 respuestas por encuesta, 1 encuesta por semana, análisis básicos y todas las características principales.</p>
+            </div>
+
+            <div class="faq">
+                <h3>¿Cómo actualizo mi plan?</h3>
+                <p>Ve a Microsoft AppSource, busca TeamPulse y haz clic en "Obtener ahora" para gestionar tu suscripción.</p>
+            </div>
+
+            <div class="faq">
+                <h3>¿Puedo exportar los resultados de las encuestas?</h3>
+                <p>¡Sí! Los planes Profesional y Empresarial incluyen funcionalidad de exportación a Excel. Usa el comando "exportar [id-encuesta]".</p>
+            </div>
+
+            <div class="faq">
+                <h3>¿Cómo uso las plantillas?</h3>
+                <p>Escribe "ver_templates" para ver las plantillas disponibles, luego "usar_template [id-plantilla]" para crear una encuesta desde una plantilla.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Comandos Disponibles</h2>
+            <ul>
+                <li><code>ayuda</code> - Mostrar menú de ayuda</li>
+                <li><code>listar</code> - Listar todas las encuestas</li>
+                <li><code>responder [id]</code> - Responder una encuesta</li>
+                <li><code>resultados [id]</code> - Ver resultados de encuesta</li>
+                <li><code>ver_templates</code> - Ver plantillas de encuesta</li>
+                <li><code>usar_template [id]</code> - Usar una plantilla</li>
+                <li><code>reportar [texto]</code> - Reportar contenido objetable</li>
+            </ul>
+        </div>
+
+        <div class="contact-box">
+            <h2>¿Necesitas Más Ayuda?</h2>
+            <p><strong>Soporte por Email:</strong> support@incumate.io</p>
+            <p><strong>Tiempo de Respuesta:</strong> Dentro de 24 horas (Profesional), Dentro de 4 horas (Empresarial)</p>
+            <p><strong>Idiomas:</strong> Español, Inglés</p>
+            <a href="mailto:support@incumate.io" class="button">Contactar Soporte</a>
+        </div>
+
+        <div class="section">
+            <h2>Estado del Sistema</h2>
+            <p>Estado Actual: <span style="color: green; font-weight: bold;">✓ Todos los Sistemas Operativos</span></p>
+            <p>Consulta <a href="https://status.incumate.io" style="color: var(--primary-color);">status.incumate.io</a> para actualizaciones en tiempo real.</p>
+        </div>
+
+        <div class="publisher-box">
+            <h2>Información del Editor</h2>
+            <p><strong>Empresa:</strong> INCUBA CONSULTORES S.A.</p>
+            <p><strong>ID de Partner de Microsoft:</strong> 4891338</p>
+            <p><strong>Ubicación:</strong> Buenos Aires, Argentina</p>
+            <p><strong>Sitio Web:</strong> <a href="https://incumate.io" style="color: var(--secondary-color);">incumate.io</a></p>
+            <br>
+            <p><strong>Contactos Especializados:</strong></p>
+            <ul>
+                <li><strong>Soporte Técnico:</strong> <a href="mailto:support@incumate.io" style="color: var(--secondary-color);">support@incumate.io</a></li>
+                <li><strong>Reportes de Seguridad:</strong> <a href="mailto:security@incumate.io" style="color: var(--secondary-color);">security@incumate.io</a></li>
+                <li><strong>Legal y Cumplimiento:</strong> <a href="mailto:legal@incumate.io" style="color: var(--secondary-color);">legal@incumate.io</a></li>
+                <li><strong>Asuntos de Privacidad:</strong> <a href="mailto:privacy@incumate.io" style="color: var(--secondary-color);">privacy@incumate.io</a></li>
+            </ul>
+            <br>
+            <p><strong>Infraestructura Técnica:</strong></p>
+            <ul>
+                <li>✓ Hospedado en Microsoft Azure Cloud</li>
+                <li>✓ Seguridad y encriptación de nivel empresarial</li>
+                <li>✓ Cumplimiento GDPR y privacidad</li>
+                <li>✓ SLA de 99.9% de tiempo activo</li>
+            </ul>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 INCUBA CONSULTORES S.A. Todos los derechos reservados.</p>
+        <div class="footer-links">
+            <a href="privacy.html">📋 Política de Privacidad</a>
+            <a href="terms.html">📄 Términos de Servicio</a>
+            <a href="eula.html">⚖️ Acuerdo de Licencia</a>
+            <a href="support.html">🛠️ Soporte</a>
+            <a href="mailto:contact@incumate.io">✉️ Contacto</a>
+        </div>
+        <p style="margin-top: 20px; color: #ccc; font-size: 14px;">
+            TeamPulse es una marca registrada de INCUBA CONSULTORES S.A.<br>
+            Todos los documentos legales actualizados para cumplimiento con Microsoft Teams App Store.
+        </p>
+    </footer>
 </body>
 </html>

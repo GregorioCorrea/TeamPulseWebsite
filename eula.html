@@ -1,178 +1,322 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TeamPulse - End User License Agreement (EULA)</title>
+    <title>TeamPulse - Acuerdo de Licencia de Usuario Final (EULA)</title>
+    <link rel="icon" type="image/png" href="logo.png">
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            line-height: 1.6; 
+            color: #333; 
             background: #f8f9fa;
         }
-        .container {
-            background: white;
-            padding: 40px;
-            border-radius: 8px;
+        
+        /* Paleta de colores basada en el logo */
+        :root {
+            --primary-color: #E91E63;
+            --secondary-color: #673AB7;
+            --gradient: linear-gradient(135deg, #E91E63 0%, #673AB7 100%);
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --gray: #666;
+            --dark: #333;
+        }
+        
+        /* Header */
+        header { 
+            background: var(--gradient); 
+            color: white; 
+            padding: 15px 0; 
+            position: fixed; 
+            width: 100%; 
+            top: 0; 
+            z-index: 1000;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
+        nav { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 0 20px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .logo { 
+            display: flex; 
+            align-items: center; 
+            font-size: 24px; 
+            font-weight: bold; 
+            text-decoration: none;
+            color: white;
+        }
+        .logo img { 
+            height: 40px; 
+            margin-right: 10px; 
+        }
+        .nav-links a { 
+            color: white; 
+            text-decoration: none; 
+            margin-left: 30px; 
+            transition: opacity 0.3s;
+        }
+        .nav-links a:hover { 
+            opacity: 0.8; 
+        }
+        
+        .container {
+            background: white;
+            max-width: 800px;
+            margin: 100px auto 20px;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
         h1 {
-            color: #0078d4;
-            border-bottom: 3px solid #0078d4;
-            padding-bottom: 10px;
-        }
-        h2 {
-            color: #106ebe;
-            margin-top: 30px;
-        }
-        .highlight {
-            background: #e3f2fd;
-            padding: 15px;
-            border-left: 4px solid #0078d4;
-            margin: 20px 0;
-        }
-        .footer {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #ddd;
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            font-size: 32px;
             text-align: center;
-            color: #666;
         }
-        .nav-links {
+        
+        h2 {
+            color: var(--secondary-color);
+            margin-top: 35px;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        
+        .highlight {
+            background: linear-gradient(145deg, #fff 0%, #f8f0f4 100%);
+            padding: 20px;
+            border: 2px solid var(--primary-color);
+            border-radius: 15px;
+            margin: 25px 0;
+        }
+        
+        .nav-links-top {
             text-align: center;
             margin-bottom: 30px;
+            padding: 15px;
+            background: var(--light-bg);
+            border-radius: 10px;
         }
-        .nav-links a {
-            color: #0078d4;
+        
+        .nav-links-top a {
+            color: var(--primary-color);
             text-decoration: none;
             margin: 0 15px;
             font-weight: 500;
         }
-        .nav-links a:hover {
+        
+        .nav-links-top a:hover {
+            color: var(--secondary-color);
             text-decoration: underline;
+        }
+        
+        .footer-doc {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            color: var(--gray);
+        }
+        
+        ul {
+            margin-left: 20px;
+        }
+        
+        ul li {
+            margin-bottom: 8px;
+        }
+        
+        strong {
+            color: var(--secondary-color);
+        }
+        
+        /* Footer */
+        footer { 
+            background: var(--dark); 
+            color: white; 
+            padding: 40px 20px; 
+            text-align: center; 
+            margin-top: 0;
+        }
+        .footer-links { 
+            margin: 20px 0; 
+        }
+        .footer-links a { 
+            color: white; 
+            text-decoration: none; 
+            margin: 0 15px; 
+            transition: color 0.3s;
+        }
+        .footer-links a:hover { 
+            color: var(--primary-color); 
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links a { margin-left: 15px; }
+            .logo { font-size: 20px; }
+            .logo img { height: 35px; }
+            .container { margin: 80px 15px 20px; padding: 25px; }
+            h1 { font-size: 24px; }
+            h2 { font-size: 18px; }
         }
     </style>
 </head>
 <body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="TeamPulse">
+                TeamPulse
+            </a>
+            <div class="nav-links">
+                <a href="index.html#features">Características</a>
+                <a href="index.html#pricing">Precios</a>
+                <a href="support.html">Soporte</a>
+                <a href="index.html#pricing">Comenzar</a>
+            </div>
+        </nav>
+    </header>
+
     <div class="container">
-        <div class="nav-links">
-            <a href="https://teampulse.incumate.io/">← Back to TeamPulse</a> |
-            <a href="https://teampulse.incumate.io/privacy.html">Privacy Policy</a> |
-            <a href="https://teampulse.incumate.io/terms.html">Terms of Service</a>
+        <div class="nav-links-top">
+            <a href="index.html">← Volver a TeamPulse</a> |
+            <a href="privacy.html">Política de Privacidad</a> |
+            <a href="terms.html">Términos de Servicio</a>
         </div>
 
-        <h1>TeamPulse - End User License Agreement (EULA)</h1>
+        <h1>TeamPulse - Acuerdo de Licencia de Usuario Final (EULA)</h1>
         
         <div class="highlight">
-            <strong>Effective Date:</strong> December 12, 2024<br>
-            <strong>Developer:</strong> INCUBA CONSULTORES<br>
-            <strong>Application:</strong> TeamPulse - Smart Survey & Feedback Bot for Microsoft Teams
+            <strong>Fecha Efectiva:</strong> 12 de Diciembre, 2024<br>
+            <strong>Desarrollador:</strong> INCUBA CONSULTORES<br>
+            <strong>Aplicación:</strong> TeamPulse - Bot Inteligente de Encuestas y Feedback para Microsoft Teams
         </div>
 
-        <p>This End User License Agreement ("EULA") is a legal agreement between you (either an individual or a single entity) and INCUBA CONSULTORES for the TeamPulse software application, including any associated media, printed materials, and electronic documentation (the "Software").</p>
+        <p>Este Acuerdo de Licencia de Usuario Final ("EULA") es un acuerdo legal entre usted (ya sea un individuo o una entidad única) e INCUBA CONSULTORES para la aplicación de software TeamPulse, incluyendo cualquier medio asociado, materiales impresos y documentación electrónica (el "Software").</p>
 
-        <h2>1. GRANT OF LICENSE</h2>
-        <p>Subject to the terms of this EULA, INCUBA CONSULTORES grants you a limited, non-exclusive, non-transferable license to:</p>
+        <h2>1. CONCESIÓN DE LICENCIA</h2>
+        <p>Sujeto a los términos de este EULA, INCUBA CONSULTORES le otorga una licencia limitada, no exclusiva e intransferible para:</p>
         <ul>
-            <li>Install and use the Software within your Microsoft Teams environment</li>
-            <li>Create and distribute surveys within your organization</li>
-            <li>Collect and analyze survey responses and data</li>
-            <li>Access pre-built survey templates and AI-powered survey creation</li>
+            <li>Instalar y usar el Software dentro de su entorno de Microsoft Teams</li>
+            <li>Crear y distribuir encuestas dentro de su organización</li>
+            <li>Recopilar y analizar respuestas y datos de encuestas</li>
+            <li>Acceder a plantillas de encuestas prediseñadas y creación de encuestas con IA</li>
         </ul>
 
-        <h2>2. RESTRICTIONS</h2>
-        <p>You may NOT:</p>
+        <h2>2. RESTRICCIONES</h2>
+        <p>NO puede:</p>
         <ul>
-            <li>Reverse engineer, decompile, or disassemble the Software</li>
-            <li>Modify, adapt, or create derivative works of the Software</li>
-            <li>Remove or alter any proprietary notices or labels on the Software</li>
-            <li>Use the Software for any unlawful purpose</li>
-            <li>Resell, redistribute, or sublicense the Software</li>
-            <li>Use the Software to collect personal data without proper consent</li>
+            <li>Realizar ingeniería inversa, descompilar o desensamblar el Software</li>
+            <li>Modificar, adaptar o crear trabajos derivados del Software</li>
+            <li>Eliminar o alterar avisos propietarios o etiquetas en el Software</li>
+            <li>Usar el Software para cualquier propósito ilegal</li>
+            <li>Revender, redistribuir o sublicenciar el Software</li>
+            <li>Usar el Software para recopilar datos personales sin el consentimiento adecuado</li>
         </ul>
 
-        <h2>3. DATA AND PRIVACY</h2>
-        <p>TeamPulse processes survey data as follows:</p>
+        <h2>3. DATOS Y PRIVACIDAD</h2>
+        <p>TeamPulse procesa datos de encuestas de la siguiente manera:</p>
         <ul>
-            <li><strong>Anonymous Responses:</strong> User responses are anonymized using cryptographic hashing</li>
-            <li><strong>Data Storage:</strong> Survey data is securely stored in Microsoft Azure cloud infrastructure</li>
-            <li><strong>Data Ownership:</strong> You retain ownership of all survey data created through the Software</li>
-            <li><strong>Privacy Compliance:</strong> The Software complies with Microsoft Teams data governance policies</li>
+            <li><strong>Respuestas Anónimas:</strong> Las respuestas de usuarios se anonimizan usando hash criptográfico</li>
+            <li><strong>Almacenamiento de Datos:</strong> Los datos de encuestas se almacenan de forma segura en la infraestructura de nube de Microsoft Azure</li>
+            <li><strong>Propiedad de Datos:</strong> Usted retiene la propiedad de todos los datos de encuestas creados a través del Software</li>
+            <li><strong>Cumplimiento de Privacidad:</strong> El Software cumple con las políticas de gobierno de datos de Microsoft Teams</li>
         </ul>
 
-        <h2>4. SUBSCRIPTION AND BILLING</h2>
-        <p>TeamPulse offers multiple service tiers:</p>
+        <h2>4. SUSCRIPCIÓN Y FACTURACIÓN</h2>
+        <p>TeamPulse ofrece múltiples niveles de servicio:</p>
         <ul>
-            <li><strong>Free Tier:</strong> Limited surveys and responses per month</li>
-            <li><strong>Professional Tier:</strong> Enhanced features and unlimited surveys</li>
-            <li><strong>Enterprise Tier:</strong> Advanced analytics and custom branding</li>
+            <li><strong>Nivel Gratuito:</strong> Encuestas y respuestas limitadas por mes</li>
+            <li><strong>Nivel Profesional:</strong> Características mejoradas y encuestas ilimitadas</li>
+            <li><strong>Nivel Empresarial:</strong> Análisis avanzados y marca personalizada</li>
         </ul>
-        <p>Billing is managed through Microsoft AppSource marketplace. Subscription fees are non-refundable except as required by applicable law.</p>
+        <p>La facturación se gestiona a través del marketplace de Microsoft AppSource. Las tarifas de suscripción no son reembolsables excepto según lo requiera la ley aplicable.</p>
 
-        <h2>5. MICROSOFT TEAMS INTEGRATION</h2>
-        <p>TeamPulse operates as a Microsoft Teams application and:</p>
+        <h2>5. INTEGRACIÓN CON MICROSOFT TEAMS</h2>
+        <p>TeamPulse opera como una aplicación de Microsoft Teams y:</p>
         <ul>
-            <li>Requires Microsoft Teams access and appropriate user permissions</li>
-            <li>Uses Microsoft Teams Single Sign-On (SSO) for authentication</li>
-            <li>Complies with Microsoft Teams App Store policies</li>
-            <li>May access Microsoft Graph APIs for enhanced functionality</li>
+            <li>Requiere acceso a Microsoft Teams y permisos de usuario apropiados</li>
+            <li>Usa el Inicio de Sesión Único (SSO) de Microsoft Teams para autenticación</li>
+            <li>Cumple con las políticas del App Store de Microsoft Teams</li>
+            <li>Puede acceder a APIs de Microsoft Graph para funcionalidad mejorada</li>
         </ul>
 
-        <h2>6. INTELLECTUAL PROPERTY</h2>
-        <p>The Software and all intellectual property rights therein are and shall remain the exclusive property of INCUBA CONSULTORES. This EULA does not grant you any rights to trademarks or service marks of INCUBA CONSULTORES.</p>
+        <h2>6. PROPIEDAD INTELECTUAL</h2>
+        <p>El Software y todos los derechos de propiedad intelectual en él son y permanecerán como propiedad exclusiva de INCUBA CONSULTORES. Este EULA no le otorga ningún derecho a marcas comerciales o marcas de servicio de INCUBA CONSULTORES.</p>
 
-        <h2>7. WARRANTY DISCLAIMER</h2>
-        <p>THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND. INCUBA CONSULTORES DISCLAIMS ALL WARRANTIES, WHETHER EXPRESS, IMPLIED, OR STATUTORY, INCLUDING WITHOUT LIMITATION WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.</p>
+        <h2>7. DESCARGO DE GARANTÍA</h2>
+        <p>EL SOFTWARE SE PROPORCIONA "TAL COMO ESTÁ" SIN GARANTÍA DE NINGÚN TIPO. INCUBA CONSULTORES RECHAZA TODAS LAS GARANTÍAS, YA SEAN EXPRESAS, IMPLÍCITAS O ESTATUTARIAS, INCLUYENDO SIN LIMITACIÓN GARANTÍAS DE COMERCIABILIDAD, IDONEIDAD PARA UN PROPÓSITO PARTICULAR Y NO INFRACCIÓN.</p>
 
-        <h2>8. LIMITATION OF LIABILITY</h2>
-        <p>IN NO EVENT SHALL INCUBA CONSULTORES BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING WITHOUT LIMITATION LOSS OF PROFITS, DATA, USE, OR OTHER ECONOMIC ADVANTAGE, EVEN IF INCUBA CONSULTORES HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.</p>
+        <h2>8. LIMITACIÓN DE RESPONSABILIDAD</h2>
+        <p>EN NINGÚN CASO INCUBA CONSULTORES SERÁ RESPONSABLE DE NINGÚN DAÑO INDIRECTO, INCIDENTAL, ESPECIAL, CONSECUENTE O PUNITIVO, INCLUYENDO SIN LIMITACIÓN PÉRDIDA DE BENEFICIOS, DATOS, USO U OTRA VENTAJA ECONÓMICA, INCLUSO SI INCUBA CONSULTORES HA SIDO ADVERTIDO DE LA POSIBILIDAD DE TALES DAÑOS.</p>
 
-        <h2>9. TERMINATION</h2>
-        <p>This EULA is effective until terminated. You may terminate this EULA at any time by uninstalling the Software. INCUBA CONSULTORES may terminate this EULA immediately upon notice if you breach any term of this agreement.</p>
+        <h2>9. TERMINACIÓN</h2>
+        <p>Este EULA es efectivo hasta que se termine. Puede terminar este EULA en cualquier momento desinstalando el Software. INCUBA CONSULTORES puede terminar este EULA inmediatamente tras aviso si usted viola cualquier término de este acuerdo.</p>
 
-        <h2>10. UPDATES AND MODIFICATIONS</h2>
-        <p>INCUBA CONSULTORES may provide updates, patches, or new versions of the Software. This EULA applies to all such updates unless accompanied by a separate license agreement.</p>
+        <h2>10. ACTUALIZACIONES Y MODIFICACIONES</h2>
+        <p>INCUBA CONSULTORES puede proporcionar actualizaciones, parches o nuevas versiones del Software. Este EULA se aplica a todas estas actualizaciones a menos que se acompañen de un acuerdo de licencia separado.</p>
 
-        <h2>11. SUPPORT</h2>
-        <p>Support for the Software is provided through:</p>
+        <h2>11. SOPORTE</h2>
+        <p>El soporte para el Software se proporciona a través de:</p>
         <ul>
             <li>Email: support@incumate.io</li>
-            <li>Documentation: https://teampulse.incumate.io/support</li>
-            <li>Microsoft Teams App Store support channels</li>
+            <li>Documentación: https://incumate.io/web/teampulse/support</li>
+            <li>Canales de soporte del Microsoft Teams App Store</li>
         </ul>
 
-        <h2>12. GOVERNING LAW</h2>
-        <p>This EULA shall be governed by and construed in accordance with the laws of Argentina, without regard to conflict of law principles.</p>
+        <h2>12. LEY APLICABLE</h2>
+        <p>Este EULA se regirá e interpretará de acuerdo con las leyes de Argentina, sin considerar los principios de conflicto de leyes.</p>
 
-        <h2>13. ENTIRE AGREEMENT</h2>
-        <p>This EULA constitutes the entire agreement between you and INCUBA CONSULTORES regarding the Software and supersedes all prior agreements and understandings.</p>
+        <h2>13. ACUERDO COMPLETO</h2>
+        <p>Este EULA constituye el acuerdo completo entre usted e INCUBA CONSULTORES con respecto al Software y reemplaza todos los acuerdos y entendimientos previos.</p>
 
-        <h2>14. CONTACT INFORMATION</h2>
-        <p>If you have any questions about this EULA, please contact:</p>
+        <h2>14. INFORMACIÓN DE CONTACTO</h2>
+        <p>Si tiene alguna pregunta sobre este EULA, por favor contacte:</p>
         <p>
             <strong>INCUBA CONSULTORES</strong><br>
             Email: legal@incumate.io<br>
-            Website: https://incumate.io<br>
-            Address: Azul, Buenos Aires, Argentina
+            Sitio Web: https://incumate.io<br>
+            Dirección: Azul, Buenos Aires, Argentina
         </p>
 
         <div class="highlight">
-            <p><strong>By installing, accessing, or using TeamPulse, you acknowledge that you have read this EULA, understand it, and agree to be bound by its terms and conditions.</strong></p>
+            <p><strong>Al instalar, acceder o usar TeamPulse, usted reconoce que ha leído este EULA, lo entiende y acepta estar sujeto a sus términos y condiciones.</strong></p>
         </div>
 
-        <div class="footer">
-            <p>&copy; 2024 INCUBA CONSULTORES. All rights reserved.<br>
-            TeamPulse is a trademark of INCUBA CONSULTORES.</p>
+        <div class="footer-doc">
+            <p>&copy; 2024 INCUBA CONSULTORES. Todos los derechos reservados.<br>
+            TeamPulse es una marca comercial de INCUBA CONSULTORES.</p>
             <p>
-                <a href="https://teampulse.incumate.io/">TeamPulse Home</a> |
-                <a href="https://teampulse.incumate.io/privacy.html">Privacy Policy</a> |
-                <a href="https://teampulse.incumate.io/terms.html">Terms of Service</a>
+                <a href="index.html" style="color: var(--primary-color);">Inicio TeamPulse</a> |
+                <a href="privacy.html" style="color: var(--primary-color);">Política de Privacidad</a> |
+                <a href="terms.html" style="color: var(--primary-color);">Términos de Servicio</a>
             </p>
         </div>
     </div>
+
+    <footer>
+        <p>&copy; 2025 INCUBA CONSULTORES S.A. Todos los derechos reservados.</p>
+        <div class="footer-links">
+            <a href="privacy.html">📋 Política de Privacidad</a>
+            <a href="terms.html">📄 Términos de Servicio</a>
+            <a href="eula.html">⚖️ Acuerdo de Licencia</a>
+            <a href="support.html">🛠️ Soporte</a>
+            <a href="mailto:contact@incumate.io">✉️ Contacto</a>
+        </div>
+        <p style="margin-top: 20px; color: #ccc; font-size: 14px;">
+            TeamPulse es una marca registrada de INCUBA CONSULTORES S.A.<br>
+            Todos los documentos legales actualizados para cumplimiento con Microsoft Teams App Store.
+        </p>
+    </footer>
 </body>
 </html>
