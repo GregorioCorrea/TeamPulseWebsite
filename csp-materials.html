@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeamPulse - CSP Program Marketing Materials</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #333; }
+        
+        /* Paleta de colores basada en el logo */
+        :root {
+            --primary-color: #E91E63;
+            --secondary-color: #673AB7;
+            --gradient: linear-gradient(135deg, #E91E63 0%, #673AB7 100%);
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --gray: #666;
+            --dark: #333;
+            --success: #28a745;
+        }
+        
+        /* Header */
+        header { 
+            background: var(--gradient); 
+            color: white; 
+            padding: 15px 0; 
+            position: fixed; 
+            width: 100%; 
+            top: 0; 
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        nav { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 0 20px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .logo { 
+            display: flex; 
+            align-items: center; 
+            font-size: 24px; 
+            font-weight: bold; 
+            text-decoration: none;
+            color: white;
+        }
+        .logo img { 
+            height: 40px; 
+            margin-right: 10px; 
+        }
+        .nav-links a { 
+            color: white; 
+            text-decoration: none; 
+            margin-left: 30px; 
+            transition: opacity 0.3s;
+        }
+        .nav-links a:hover { 
+            opacity: 0.8; 
+        }
+        
+        /* Main Content */
+        main {
+            margin-top: 80px;
+            min-height: calc(100vh - 200px);
+        }
+        
+        .hero-section {
+            background: var(--gradient);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .hero-section h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+        
+        .hero-section p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .content-section {
+            padding: 60px 20px;
+        }
+        
+        .section-title {
+            font-size: 32px;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .section-subtitle {
+            font-size: 24px;
+            color: var(--secondary-color);
+            margin: 40px 0 20px 0;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .download-card {
+            background: linear-gradient(145deg, #fff 0%, #f8f0f4 100%);
+            border: 2px solid var(--primary-color);
+        }
+        
+        .download-card .download-btn {
+            display: inline-block;
+            background: var(--gradient);
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: transform 0.3s;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .pricing-table {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin: 40px 0;
+        }
+        
+        .pricing-header {
+            background: var(--gradient);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .pricing-body {
+            padding: 30px;
+        }
+        
+        .pricing-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 20px;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            align-items: center;
+        }
+        
+        .pricing-row:last-child {
+            border-bottom: none;
+        }
+        
+        .pricing-row.header {
+            font-weight: bold;
+            background: var(--light-bg);
+            padding: 20px 0;
+        }
+        
+        .feature-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+        
+        .feature-list li {
+            padding: 8px 0;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .feature-list li::before {
+            content: "✓";
+            color: var(--success);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .contact-section {
+            background: var(--light-bg);
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .contact-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .contact-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .contact-card h3 {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: var(--success);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin: 5px 5px 5px 0;
+        }
+        
+        /* Footer */
+        footer { 
+            background: var(--dark); 
+            color: white; 
+            padding: 40px 20px; 
+            text-align: center; 
+        }
+        .footer-links { 
+            margin: 20px 0; 
+        }
+        .footer-links a { 
+            color: white; 
+            text-decoration: none; 
+            margin: 0 15px; 
+            transition: color 0.3s;
+        }
+        .footer-links a:hover { 
+            color: var(--primary-color); 
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links a { margin-left: 15px; }
+            .logo { font-size: 20px; }
+            .logo img { height: 35px; }
+            .hero-section h1 { font-size: 32px; }
+            .hero-section p { font-size: 18px; }
+            .pricing-row { grid-template-columns: 1fr; }
+            .section-title { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="TeamPulse">
+                TeamPulse
+            </a>
+            <div class="nav-links">
+                <a href="index.html#features">Features</a>
+                <a href="index.html#pricing">Pricing</a>
+                <a href="support.html">Support</a>
+                <a href="index.html#pricing">Get Started</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1>CSP Program Marketing Materials</h1>
+                <p>Partner with TeamPulse to deliver powerful survey and feedback solutions to your Microsoft Teams customers. Access comprehensive marketing resources, competitive pricing, and dedicated partner support.</p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <h2 class="section-title">Why Partner with TeamPulse?</h2>
+                
+                <div class="grid">
+                    <div class="card">
+                        <h3>🎯 Market Opportunity</h3>
+                        <p>Employee engagement and feedback tools are in high demand. TeamPulse addresses the growing need for anonymous, AI-powered survey solutions within Microsoft Teams.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>💰 Attractive Margins</h3>
+                        <p>Competitive CSP pricing with healthy margins for partners. Recurring revenue model with professional and enterprise tiers.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>🚀 Easy to Sell</h3>
+                        <p>Native Teams integration means seamless deployment. No complex technical requirements or training needed for end customers.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>🛠️ Full Support</h3>
+                        <p>Dedicated partner support, sales enablement materials, and technical documentation to help you succeed.</p>
+                    </div>
+                </div>
+
+                <h2 class="section-subtitle">Product Overview</h2>
+                <p><strong>TeamPulse</strong> is an AI-powered survey and feedback bot for Microsoft Teams that enables organizations to:</p>
+                
+                <ul class="feature-list">
+                    <li>Create professional surveys instantly using Azure OpenAI assistance</li>
+                    <li>Collect truly anonymous responses with cryptographic hashing</li>
+                    <li>Generate real-time insights and analytics</li>
+                    <li>Use pre-built templates for HR, customer feedback, training, and 360° reviews</li>
+                    <li>Maintain enterprise-grade security with Azure cloud storage</li>
+                    <li>Integrate seamlessly with existing Teams workflows</li>
+                </ul>
+
+                <h2 class="section-subtitle">Pricing & Licensing</h2>
+                <div class="pricing-table">
+                    <div class="pricing-header">
+                        <h3>TeamPulse Licensing Tiers</h3>
+                    </div>
+                    <div class="pricing-body">
+                        <div class="pricing-row header">
+                            <div>Plan</div>
+                            <div>Price/User/Month</div>
+                            <div>CSP Margin</div>
+                            <div>Key Features</div>
+                        </div>
+                        <div class="pricing-row">
+                            <div><strong>Free</strong><br>Entry level</div>
+                            <div>$0</div>
+                            <div>Lead Generation</div>
+                            <div>50 responses/survey<br>1 survey/week</div>
+                        </div>
+                        <div class="pricing-row">
+                            <div><strong>Professional</strong><br>Most popular</div>
+                            <div>$4.00</div>
+                            <div>20%</div>
+                            <div>Unlimited surveys<br>Advanced analytics<br>Excel export</div>
+                        </div>
+                        <div class="pricing-row">
+                            <div><strong>Enterprise</strong><br>Large organizations</div>
+                            <div>$8.00</div>
+                            <div>25%</div>
+                            <div>Custom branding<br>Power BI integration<br>Priority support</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="section-subtitle">Target Customers</h2>
+                <div class="grid">
+                    <div class="card">
+                        <h3>Primary Markets</h3>
+                        <ul class="feature-list">
+                            <li>Mid to large enterprises using Microsoft Teams</li>
+                            <li>HR departments seeking employee engagement tools</li>
+                            <li>Customer success teams requiring feedback collection</li>
+                            <li>Training and development organizations</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Ideal Customer Profile</h3>
+                        <ul class="feature-list">
+                            <li>500+ employees using Microsoft Teams</li>
+                            <li>Existing Microsoft 365 E3/E5 licenses</li>
+                            <li>Focus on employee engagement and feedback</li>
+                            <li>Need for anonymous data collection</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2 class="section-subtitle">Marketing Materials & Resources</h2>
+                <div class="grid">
+                    <div class="card download-card">
+                        <h3>📊 Sales Deck</h3>
+                        <p>Comprehensive partner sales presentation with competitive analysis, ROI calculations, and customer case studies.</p>
+                        <a href="mailto:partners@incumate.io?subject=Request%20Sales%20Deck" class="download-btn">Request Sales Deck</a>
+                    </div>
+                    
+                    <div class="card download-card">
+                        <h3>🎨 Logo & Brand Assets</h3>
+                        <p>High-resolution logos, brand guidelines, and co-marketing templates for your presentations and materials.</p>
+                        <a href="mailto:partners@incumate.io?subject=Request%20Brand%20Assets" class="download-btn">Request Assets</a>
+                    </div>
+                    
+                    <div class="card download-card">
+                        <h3>📋 Product Datasheet</h3>
+                        <p>Technical specifications, feature comparison, and implementation guide for customer discussions.</p>
+                        <a href="mailto:partners@incumate.io?subject=Request%20Datasheet" class="download-btn">Request Datasheet</a>
+                    </div>
+                    
+                    <div class="card download-card">
+                        <h3>🎯 Demo Script</h3>
+                        <p>Step-by-step demo guide with talking points and common objection handling for live presentations.</p>
+                        <a href="mailto:partners@incumate.io?subject=Request%20Demo%20Script" class="download-btn">Request Script</a>
+                    </div>
+                </div>
+
+                <h2 class="section-subtitle">Technical Information</h2>
+                <div class="card">
+                    <h3>Implementation & Support</h3>
+                    <div class="grid" style="margin-top: 20px;">
+                        <div>
+                            <h4 style="color: var(--secondary-color); margin-bottom: 10px;">Technical Requirements</h4>
+                            <ul class="feature-list">
+                                <li>Microsoft Teams (any plan)</li>
+                                <li>Microsoft 365 tenant</li>
+                                <li>No additional infrastructure required</li>
+                                <li>Supports 10 to 100,000+ users</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--secondary-color); margin-bottom: 10px;">Deployment</h4>
+                            <ul class="feature-list">
+                                <li>Install from Microsoft AppSource</li>
+                                <li>5-minute setup process</li>
+                                <li>No IT intervention required</li>
+                                <li>Immediate user adoption</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="section-subtitle">Competitive Advantages</h2>
+                <div class="grid">
+                    <div class="card">
+                        <h3>vs. Traditional Survey Tools</h3>
+                        <ul class="feature-list">
+                            <li>Native Teams integration (no external logins)</li>
+                            <li>True anonymity with cryptographic hashing</li>
+                            <li>AI-powered survey creation</li>
+                            <li>Real-time analytics within Teams</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>vs. Generic Bots</h3>
+                        <ul class="feature-list">
+                            <li>Purpose-built for enterprise feedback</li>
+                            <li>Professional survey templates</li>
+                            <li>Advanced analytics and insights</li>
+                            <li>Enterprise security and compliance</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2 class="section-subtitle">Success Metrics & ROI</h2>
+                <div class="card">
+                    <h3>Customer Value Proposition</h3>
+                    <p>Help your customers quantify the value of TeamPulse:</p>
+                    <div class="grid" style="margin-top: 20px;">
+                        <div>
+                            <h4 style="color: var(--success);">Cost Savings</h4>
+                            <ul class="feature-list">
+                                <li>Replace expensive external survey tools</li>
+                                <li>Reduce HR administrative overhead</li>
+                                <li>Eliminate survey platform licensing fees</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--success);">Productivity Gains</h4>
+                            <ul class="feature-list">
+                                <li>Faster survey creation (minutes vs. hours)</li>
+                                <li>Higher response rates with Teams integration</li>
+                                <li>Real-time insights for faster decision making</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-section">
+            <div class="container">
+                <h2 class="section-title">Partner Support & Contact</h2>
+                <p>We're here to support your success with dedicated partner resources and responsive support.</p>
+                
+                <div class="contact-cards">
+                    <div class="contact-card">
+                        <h3>🤝 Partner Manager</h3>
+                        <p><strong>Email:</strong> partners@incumate.io</p>
+                        <p><strong>Response:</strong> Within 4 hours</p>
+                        <p>Sales enablement, co-marketing opportunities, and partnership strategy.</p>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <h3>🛠️ Technical Support</h3>
+                        <p><strong>Email:</strong> support@incumate.io</p>
+                        <p><strong>Response:</strong> Within 24 hours</p>
+                        <p>Implementation assistance, technical questions, and customer escalations.</p>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <h3>💼 Business Development</h3>
+                        <p><strong>Email:</strong> bizdev@incumate.io</p>
+                        <p><strong>Response:</strong> Within 8 hours</p>
+                        <p>Large deal support, custom pricing, and enterprise opportunities.</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 40px;">
+                    <h3 style="color: var(--secondary-color); margin-bottom: 20px;">Certifications & Compliance</h3>
+                    <div style="text-align: center;">
+                        <span class="badge">Microsoft Partner</span>
+                        <span class="badge">Azure Certified</span>
+                        <span class="badge">GDPR Compliant</span>
+                        <span class="badge">SOC 2 Ready</span>
+                        <span class="badge">ISO 27001 Prepared</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 INCUBA CONSULTORES S.A. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="privacy.html">📋 Privacy Policy</a>
+            <a href="terms.html">📄 Terms of Service</a>
+            <a href="eula.html">⚖️ End User License Agreement</a>
+            <a href="support.html">🛠️ Support</a>
+            <a href="mailto:partners@incumate.io">✉️ Partner Contact</a>
+        </div>
+        <p style="margin-top: 20px; color: #ccc; font-size: 14px;">
+            TeamPulse is a registered trademark of INCUBA CONSULTORES S.A.<br>
+            Microsoft Partner | Cloud Solution Provider Program
+        </p>
+    </footer>
+</body>
+</html>
