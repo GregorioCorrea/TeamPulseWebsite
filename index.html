@@ -406,7 +406,7 @@
         // 🚀 SaaS Configuration Handler
         // Este script detecta si hay un token en la URL y procesa la configuración de SaaS
         
-        const BACKEND_URL = 'https://teampulse-e3gvgbhncvemchdf.brazilsouth-01.azurewebsites.net';
+        //const BACKEND_URL = 'https://teampulse-e3gvgbhncvemchdf.brazilsouth-01.azurewebsites.net';
         
         function getUrlParameter(name) {
             const urlParams = new URLSearchParams(window.location.search);
@@ -430,7 +430,7 @@
                 console.log('🚀 Processing SaaS configuration...');
                 
                 // Llamar al backend para procesar la configuración
-                const response = await fetch(`${BACKEND_URL}/api/marketplace/webhook`, {
+                const response = await fetch(`https://teampulse-e3gvgbhncvemchdf.brazilsouth-01.azurewebsites.net/api/marketplace/webhook`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
