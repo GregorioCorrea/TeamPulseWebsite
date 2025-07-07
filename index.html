@@ -402,115 +402,76 @@
         </p>
     </footer>
 
+<!-- …todo el <head> y el <body> sin cambios hasta llegar al <script> -->
     <script>
         // 🚀 SaaS Configuration Handler
         // Este script detecta si hay un token en la URL y procesa la configuración de SaaS
-        
-        //const BACKEND_URL = 'https://teampulse-e3gvgbhncvemchdf.brazilsouth-01.azurewebsites.net';
-        
+
+        /* ############ MOD editable ############ */
+        /***
+         * URL pública del backend Node que expone /api/marketplace/webhook
+         * ↳ Si alguna vez cambiás el App Service, solo tocás esta constante.
+         */
+        const BACKEND_URL = "https://teampulse-e3gvgbhncvemchdf.brazilsouth-01.azurewebsites.net";
+        /* ###################################### */
+
         function getUrlParameter(name) {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(name);
         }
-        
+
         function showSaasOverlay() {
-            document.getElementById('saasOverlay').style.display = 'flex';
+            document.getElementById("saasOverlay").style.display = "flex";
         }
-        
+
         function hideSaasOverlay() {
-            document.getElementById('saasOverlay').style.display = 'none';
+            document.getElementById("saasOverlay").style.display = "none";
         }
-        
+
         function updateSaasContent(html) {
-            document.getElementById('saasContent').innerHTML = html;
+            document.getElementById("saasContent").innerHTML = html;
         }
-        
+
         async function processSaasConfiguration(token) {
             try {
-                console.log('🚀 Processing SaaS configuration...');
-                
+                console.log("🚀 Processing SaaS configuration...");
+
                 // Llamar al backend para procesar la configuración
-                const response = await fetch(`https://teampulse-e3gvgbhncvemchdf.brazilsouth-01.azurewebsites.net/api/marketplace/webhook`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ token: token })
-                });
-                
+                const response = await fetch(
+                    `${BACKEND_URL}/api/marketplace/webhook`,
+                    {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ token })
+                    }
+                );
+
                 const result = await response.json();
-                
+
                 if (response.ok && result.success) {
-                    // Configuración exitosa
-                    updateSaasContent(`
-                        <div class="success-icon">🎉</div>
-                        <h2>¡Configuración Completada!</h2>
-                        <p>Tu suscripción a <strong>TeamPulse</strong> ha sido activada exitosamente.</p>
-                        <hr style="margin: 30px 0;">
-                        <h3>Próximos Pasos:</h3>
-                        <p>1. Ve a Microsoft Teams</p>
-                        <p>2. Busca "TeamPulse" en el store de aplicaciones</p>
-                        <p>3. Instala la aplicación en tu tenant</p>
-                        <p>4. ¡Empieza a crear encuestas!</p>
-                        <br>
-                        <a href="https://teams.microsoft.com" class="saas-button">Abrir Microsoft Teams</a>
-                        <a href="support.html" class="saas-button">Ver Documentación</a>
-                        <hr style="margin: 30px 0;">
-                        <p><strong>Subscription ID:</strong> ${result.subscriptionId || 'N/A'}</p>
-                        <p><strong>Plan:</strong> ${result.planId || 'N/A'}</p>
-                        <p><strong>Estado:</strong> ✅ Activo</p>
-                    `);
+                    /* …tu bloque de “Configuración Exitosa” sin cambios… */
                 } else {
-                    // Error en la configuración
-                    updateSaasContent(`
-                        <div class="error-icon">❌</div>
-                        <h2>Error de Configuración</h2>
-                        <p>Ocurrió un problema al activar tu suscripción.</p>
-                        <p><strong>Error:</strong> ${result.error || 'Error desconocido'}</p>
-                        <br>
-                        <p>Por favor contacta a soporte con este información:</p>
-                        <p><strong>ID de Error:</strong> ${result.errorId || 'N/A'}</p>
-                        <br>
-                        <a href="mailto:support@incumate.io?subject=Error de Configuración SaaS&body=Error ID: ${result.errorId || 'N/A'}%0AToken: ${token.substring(0,20)}..." class="saas-button">Contactar Soporte</a>
-                        <button onclick="hideSaasOverlay()" class="saas-button">Cerrar</button>
-                    `);
+                    /* …tu bloque de “Error de Configuración” sin cambios… */
                 }
-                
             } catch (error) {
-                console.error('❌ Error processing SaaS configuration:', error);
-                updateSaasContent(`
-                    <div class="error-icon">❌</div>
-                    <h2>Error de Conexión</h2>
-                    <p>No se pudo conectar con el servidor de configuración.</p>
-                    <p>Por favor verifica tu conexión a internet e intenta nuevamente.</p>
-                    <br>
-                    <button onclick="processSaasConfiguration('${token}')" class="saas-button">Reintentar</button>
-                    <button onclick="hideSaasOverlay()" class="saas-button">Cerrar</button>
-                    <br><br>
-                    <p><small>Si el problema persiste, contacta: <a href="mailto:support@incumate.io">support@incumate.io</a></small></p>
-                `);
+                /* …tu bloque de “Error de Conexión” sin cambios… */
             }
         }
-        
+
         // 🔍 Detectar si hay un token en la URL al cargar la página
-        document.addEventListener('DOMContentLoaded', function() {
-            const token = getUrlParameter('token');
-            
+        document.addEventListener("DOMContentLoaded", () => {
+            const token = getUrlParameter("token");
             if (token) {
-                console.log('🎯 SaaS configuration token detected');
+                console.log("🎯 SaaS configuration token detected");
                 showSaasOverlay();
-                
-                // Esperar un momento para que la UI se renderice
-                setTimeout(() => {
-                    processSaasConfiguration(token);
-                }, 500);
+                setTimeout(() => processSaasConfiguration(token), 500);
             }
         });
-        
-        // 🛠️ Función de utilidad para testing
-        window.testSaasConfig = function(testToken) {
+
+        // 🛠️ Utilidad de testing
+        window.testSaasConfig = function (testToken) {
             if (!testToken) {
-                testToken = prompt('Ingresa el token de prueba:');
+                testToken = prompt("Ingresa el token de prueba:");
             }
             if (testToken) {
                 showSaasOverlay();
