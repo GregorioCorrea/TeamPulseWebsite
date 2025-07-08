@@ -404,83 +404,187 @@
 
 <!-- …todo el <head> y el <body> sin cambios hasta llegar al <script> -->
     <script>
-        // 🚀 SaaS Configuration Handler
-        // Este script detecta si hay un token en la URL y procesa la configuración de SaaS
+ // 🚀 SaaS Configuration Handler - Usando endpoint separado
+const BACKEND_URL = "https://teampulse-e3gvgbhncvemchdf.brazilsouth-01.azurewebsites.net";
 
-        /* ############ MOD editable ############ */
-        /***
-         * URL pública del backend Node que expone /api/marketplace/webhook
-         * ↳ Si alguna vez cambiás el App Service, solo tocás esta constante.
-         */
-        const BACKEND_URL = "https://teampulse-e3gvgbhncvemchdf.brazilsouth-01.azurewebsites.net";
-        /* ###################################### */
+function getUrlParameter(name) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
+}
 
-        function getUrlParameter(name) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(name);
-        }
+function showSaasOverlay() {
+    document.getElementById("saasOverlay").style.display = "flex";
+}
 
-        function showSaasOverlay() {
-            document.getElementById("saasOverlay").style.display = "flex";
-        }
+function hideSaasOverlay() {
+    document.getElementById("saasOverlay").style.display = "none";
+}
 
-        function hideSaasOverlay() {
-            document.getElementById("saasOverlay").style.display = "none";
-        }
+function updateSaasContent(html) {
+    document.getElementById("saasContent").innerHTML = html;
+}
 
-        function updateSaasContent(html) {
-            document.getElementById("saasContent").innerHTML = html;
-        }
+async function processSaasConfiguration(token) {
+    try {
+        console.log("🚀 Procesando configuración de SaaS...");
+        console.log("🎫 Token (primeros 50 chars):", token.substring(0, 50));
 
-        async function processSaasConfiguration(token) {
-            try {
-                console.log("🚀 Processing SaaS configuration...");
+        updateSaasContent(`
+            <div class="spinner"></div>
+            <h2>Activando tu suscripción a TeamPulse...</h2>
+            <p>Estamos configurando tu cuenta. Esto puede tomar unos segundos.</p>
+            <p><small>Conectando con Azure Marketplace...</small></p>
+        `);
 
-                // Llamar al backend para procesar la configuración
-                const response = await fetch(
-                    `${BACKEND_URL}/api/marketplace/webhook`,
-                    {
-                        method: "POST",
-                        headers: {
-                             "Content-Type": "application/json",
-                             "Authorization": `Bearer ${token}` // Usar el token como Bearer Token
-                        },
-                        body: JSON.stringify({ token })
-                    }
-                );
-
-                const result = await response.json();
-
-                if (response.ok && result.success) {
-                    /* …tu bloque de “Configuración Exitosa” sin cambios… */
-                } else {
-                    /* …tu bloque de “Error de Configuración” sin cambios… */
-                }
-            } catch (error) {
-                /* …tu bloque de “Error de Conexión” sin cambios… */
-            }
-        }
-
-        // 🔍 Detectar si hay un token en la URL al cargar la página
-        document.addEventListener("DOMContentLoaded", () => {
-            const token = getUrlParameter("token");
-            if (token) {
-                console.log("🎯 SaaS configuration token detected");
-                showSaasOverlay();
-                setTimeout(() => processSaasConfiguration(token), 500);
-            }
+        // 🆕 Usar el nuevo endpoint específico para landing page
+        const response = await fetch(`${BACKEND_URL}/api/marketplace/landing/activate`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ token })
         });
 
-        // 🛠️ Utilidad de testing
-        window.testSaasConfig = function (testToken) {
-            if (!testToken) {
-                testToken = prompt("Ingresa el token de prueba:");
+        console.log("📡 Response status:", response.status);
+        console.log("📡 Response headers:", Object.fromEntries(response.headers.entries()));
+
+        if (response.ok) {
+            const result = await response.json();
+            console.log("✅ Resultado exitoso:", result);
+            
+            updateSaasContent(`
+                <div class="success-icon">🎉</div>
+                <h2>¡Suscripción Activada!</h2>
+                <p>Tu suscripción a TeamPulse ha sido activada correctamente.</p>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; text-align: left;">
+                    <p><strong>📋 Detalles de la suscripción:</strong></p>
+                    <p>• <strong>ID:</strong> ${result.subscriptionId || 'N/A'}</p>
+                    <p>• <strong>Plan:</strong> ${result.planId || 'N/A'}</p>
+                    <p>• <strong>Activado:</strong> ${new Date(result.timestamp || Date.now()).toLocaleString()}</p>
+                </div>
+                <p>Ya puedes comenzar a crear encuestas anónimas en Microsoft Teams.</p>
+                <br>
+                <a href="https://teams.microsoft.com" target="_blank" class="saas-button">
+                    🚀 Abrir Microsoft Teams
+                </a>
+                <button onclick="hideSaasOverlay()" class="saas-button">Cerrar</button>
+            `);
+
+            // Opcional: Mostrar notificación de éxito
+            setTimeout(() => {
+                if (confirm("¿Quieres abrir Microsoft Teams ahora para empezar a usar TeamPulse?")) {
+                    window.open("https://teams.microsoft.com", "_blank");
+                }
+            }, 3000);
+
+        } else {
+            let errorMessage = `Error ${response.status}`;
+            let errorDetails = "";
+            
+            try {
+                const errorData = await response.json();
+                errorMessage = errorData.error || errorMessage;
+                errorDetails = errorData.details || "";
+            } catch {
+                errorMessage = await response.text() || errorMessage;
             }
-            if (testToken) {
-                showSaasOverlay();
-                processSaasConfiguration(testToken);
-            }
-        };
+            
+            console.error("❌ Error en respuesta:", errorMessage, errorDetails);
+            
+            updateSaasContent(`
+                <div class="error-icon">❌</div>
+                <h2>Error al Activar Suscripción</h2>
+                <p>Hubo un problema al activar tu suscripción a TeamPulse.</p>
+                <div style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <p><strong>Error:</strong> ${errorMessage}</p>
+                    ${errorDetails ? `<p><strong>Detalles:</strong> ${errorDetails}</p>` : ''}
+                    <p><strong>Código:</strong> ${response.status}</p>
+                </div>
+                <p>Por favor, contacta a nuestro equipo de soporte con esta información.</p>
+                <br>
+                <button onclick="processSaasConfiguration('${token}')" class="saas-button">
+                    🔄 Reintentar
+                </button>
+                <a href="mailto:support@incumate.io?subject=Error activando TeamPulse&body=Error: ${encodeURIComponent(errorMessage)}%0ADetalles: ${encodeURIComponent(errorDetails)}%0ACódigo: ${response.status}" class="saas-button">
+                    📧 Contactar Soporte
+                </a>
+                <button onclick="hideSaasOverlay()" class="saas-button">Cerrar</button>
+            `);
+        }
+
+    } catch (error) {
+        console.error("💥 Error de red:", error);
+        
+        updateSaasContent(`
+            <div class="error-icon">🌐</div>
+            <h2>Error de Conexión</h2>
+            <p>No se pudo conectar con el servidor de activación.</p>
+            <p><strong>Error:</strong> ${error.message}</p>
+            <p>Por favor, verifica tu conexión a internet e intenta nuevamente.</p>
+            <br>
+            <button onclick="processSaasConfiguration('${token}')" class="saas-button">
+                🔄 Reintentar
+            </button>
+            <button onclick="hideSaasOverlay()" class="saas-button">Cerrar</button>
+        `);
+    }
+}
+
+// 🔍 Detectar token al cargar la página
+document.addEventListener("DOMContentLoaded", () => {
+    const token = getUrlParameter("token");
+    if (token) {
+        console.log("🎯 Token de configuración detectado");
+        console.log("🔗 Usando endpoint:", `${BACKEND_URL}/api/marketplace/landing/activate`);
+        showSaasOverlay();
+        // Pequeña pausa para que se vea la UI
+        setTimeout(() => processSaasConfiguration(token), 1000);
+    }
+});
+
+// 🛠️ Funciones de debug (útiles para testing)
+window.testSaasConfig = function(testToken) {
+    const token = testToken || prompt("Ingresa un token de prueba:");
+    if (token) {
+        showSaasOverlay();
+        processSaasConfiguration(token);
+    }
+};
+
+window.debugMarketplace = function() {
+    console.log("=== 🔧 DEBUG MARKETPLACE ===");
+    console.log("Backend URL:", BACKEND_URL);
+    console.log("Landing endpoint:", `${BACKEND_URL}/api/marketplace/landing/activate`);
+    console.log("Webhook endpoint:", `${BACKEND_URL}/api/marketplace/webhook`);
+    console.log("Current URL:", window.location.href);
+    console.log("URL Params:", window.location.search);
+    console.log("Token detected:", !!getUrlParameter("token"));
+};
+
+// 🏥 Health checks
+window.checkLandingHealth = async function() {
+    try {
+        const response = await fetch(`${BACKEND_URL}/api/marketplace/landing/health`);
+        const result = await response.json();
+        console.log("🏥 Landing page health:", result);
+        alert(`Landing Page Status: ${result.status}\nCredentials: ${result.environment.hasCredentials}\nStorage: ${result.environment.hasStorage}`);
+    } catch (error) {
+        console.error("❌ Landing page health check failed:", error);
+        alert("❌ Landing page endpoint no disponible");
+    }
+};
+
+window.checkAllMarketplaceHealth = async function() {
+    try {
+        const response = await fetch(`${BACKEND_URL}/api/marketplace/status`);
+        const result = await response.json();
+        console.log("🏥 Marketplace status:", result);
+        alert(`Marketplace Status: ${result.status}\nWebhook: ${result.services.webhook}\nLanding: ${result.services.landingPage}`);
+    } catch (error) {
+        console.error("❌ Marketplace status check failed:", error);
+        alert("❌ Marketplace endpoints no disponibles");
+    }
+};
     </script>
 </body>
 </html>
