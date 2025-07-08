@@ -405,13 +405,13 @@
 <!-- …todo el <head> y el <body> sin cambios hasta llegar al <script> -->
    
    <script>
- // 🚀 SaaS Configuration Handler - Usando endpoint separado
-// 🚀 SaaS Configuration Handler - Arquitectura correcta con SSO
+    // 🚀 SaaS Configuration Handler - Con redirect flow correcto
 const BACKEND_URL = "https://teampulse-e3gvgbhncvemchdf.brazilsouth-01.azurewebsites.net";
 
-// Configuración MSAL para SSO
+// Variables globales
 let msalInstance = null;
 let ssoConfig = null;
+let currentMarketplaceToken = null;
 
 function getUrlParameter(name) {
     const urlParams = new URLSearchParams(window.location.search);
@@ -443,6 +443,30 @@ async function getSsoConfig() {
     }
 }
 
+// ── Cargar script de MSAL
+function loadMsalScript() {
+    return new Promise((resolve, reject) => {
+        if (window.msal) {
+            resolve();
+            return;
+        }
+        
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/@azure/msal-browser@2.38.3/lib/msal-browser.min.js';
+        script.onload = resolve;
+        script.onerror = (error) => {
+            console.error("❌ Error cargando MSAL desde jsDelivr:", error);
+            // Fallback a unpkg
+            const fallbackScript = document.createElement('script');
+            fallbackScript.src = 'https://unpkg.com/@azure/msal-browser@2.38.3/lib/msal-browser.min.js';
+            fallbackScript.onload = resolve;
+            fallbackScript.onerror = reject;
+            document.head.appendChild(fallbackScript);
+        };
+        document.head.appendChild(script);
+    });
+}
+
 // ── Inicializar MSAL para SSO
 async function initializeMsal() {
     try {
@@ -457,7 +481,7 @@ async function initializeMsal() {
             auth: {
                 clientId: ssoConfig.landingClientId,
                 authority: ssoConfig.authority,
-                redirectUri: window.location.origin + "/api/marketplace/landing/callback"
+                redirectUri: window.location.origin // ← Simplificado: solo el origin
             },
             cache: {
                 cacheLocation: "sessionStorage",
@@ -476,41 +500,19 @@ async function initializeMsal() {
     }
 }
 
-
-// ── Cargar script de MSAL - CDN ALTERNATIVO
-function loadMsalScript() {
-    return new Promise((resolve, reject) => {
-        if (window.msal) {
-            resolve();
-            return;
-        }
-        
-        const script = document.createElement('script');
-        // 🔧 Usar CDN de jsDelivr en lugar de alcdn.msauth.net
-        script.src = 'https://cdn.jsdelivr.net/npm/@azure/msal-browser@2.38.3/lib/msal-browser.min.js';
-        script.onload = resolve;
-        script.onerror = (error) => {
-            console.error("❌ Error cargando MSAL desde jsDelivr:", error);
-            // 🔧 Fallback a unpkg
-            const fallbackScript = document.createElement('script');
-            fallbackScript.src = 'https://unpkg.com/@azure/msal-browser@2.38.3/lib/msal-browser.min.js';
-            fallbackScript.onload = resolve;
-            fallbackScript.onerror = reject;
-            document.head.appendChild(fallbackScript);
-        };
-        document.head.appendChild(script);
-    });
-}
-
-// ── Realizar login SSO
-async function performSsoLogin() {
+// ── Realizar login SSO con REDIRECT
+async function performSsoLogin(marketplaceToken) {
     try {
-        console.log("🔐 Iniciando SSO login...");
+        console.log("🔐 Iniciando SSO login con redirect...");
+        
+        // Guardar el token para usar después del redirect
+        sessionStorage.setItem('marketplaceToken', marketplaceToken);
         
         updateSaasContent(`
             <div class="spinner"></div>
-            <h2>Iniciando sesión con Microsoft...</h2>
+            <h2>Redirigiendo a Microsoft...</h2>
             <p>Serás redirigido a Microsoft para autenticarte.</p>
+            <p>Después regresarás aquí automáticamente.</p>
         `);
 
         const loginRequest = {
@@ -518,38 +520,21 @@ async function performSsoLogin() {
             prompt: "select_account"
         };
 
-        const result = await msalInstance.loginPopup(loginRequest);
-        console.log("✅ SSO login exitoso:", result);
+        // ← CAMBIO CLAVE: usar loginRedirect en lugar de loginPopup
+        await msalInstance.loginRedirect(loginRequest);
         
-        return result.idToken;
     } catch (error) {
         console.error("❌ Error en SSO login:", error);
         throw error;
     }
 }
 
-// ── Procesar configuración SaaS con SSO
-async function processSaasConfiguration(marketplaceToken) {
+// ── Continuar proceso después del login (nueva función)
+async function continuarProcesoDespuesDelLogin(marketplaceToken, idToken) {
     try {
-        console.log("🚀 Procesando configuración SaaS con SSO...");
-        console.log("🎫 Marketplace token (primeros 50 chars):", marketplaceToken.substring(0, 50));
-
-        updateSaasContent(`
-            <div class="spinner"></div>
-            <h2>Preparando tu suscripción...</h2>
-            <p>Configurando autenticación segura...</p>
-        `);
-
-        // Paso 1: Inicializar MSAL
-        const msalReady = await initializeMsal();
-        if (!msalReady) {
-            throw new Error("No se pudo inicializar el sistema de autenticación");
-        }
-
-        // Paso 2: Realizar SSO login
-        const idToken = await performSsoLogin();
-
-        // Paso 3: Enviar ambos tokens al backend
+        console.log("🎉 Continuando después del login exitoso");
+        
+        showSaasOverlay();
         updateSaasContent(`
             <div class="spinner"></div>
             <h2>Activando tu suscripción...</h2>
@@ -562,8 +547,8 @@ async function processSaasConfiguration(marketplaceToken) {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({ 
-                marketplaceToken: marketplaceToken,
-                idToken: "fake.testing.token" // Aquí deberías usar el token real
+                marketplaceToken,
+                idToken 
             })
         });
 
@@ -593,12 +578,8 @@ async function processSaasConfiguration(marketplaceToken) {
                 <button onclick="hideSaasOverlay()" class="saas-button">Cerrar</button>
             `);
 
-            // Opcional: Mostrar notificación de éxito
-            setTimeout(() => {
-                if (confirm("¿Quieres abrir Microsoft Teams ahora para empezar a usar TeamPulse?")) {
-                    window.open("https://teams.microsoft.com", "_blank");
-                }
-            }, 3000);
+            // Limpiar sessionStorage
+            sessionStorage.removeItem('marketplaceToken');
 
         } else {
             let errorMessage = `Error ${response.status}`;
@@ -625,15 +606,47 @@ async function processSaasConfiguration(marketplaceToken) {
                 </div>
                 <p>Por favor, contacta a nuestro equipo de soporte con esta información.</p>
                 <br>
-                <button onclick="processSaasConfiguration('${marketplaceToken}')" class="saas-button">
-                    🔄 Reintentar
-                </button>
-                <a href="mailto:support@incumate.io?subject=Error activando TeamPulse&body=Error: ${encodeURIComponent(errorMessage)}%0ADetalles: ${encodeURIComponent(errorDetails)}%0ACódigo: ${response.status}" class="saas-button">
-                    📧 Contactar Soporte
-                </a>
                 <button onclick="hideSaasOverlay()" class="saas-button">Cerrar</button>
             `);
         }
+
+    } catch (error) {
+        console.error("💥 Error en proceso post-login:", error);
+        
+        updateSaasContent(`
+            <div class="error-icon">🌐</div>
+            <h2>Error de Configuración</h2>
+            <p>No se pudo completar la configuración después del login.</p>
+            <p><strong>Error:</strong> ${error.message}</p>
+            <br>
+            <button onclick="hideSaasOverlay()" class="saas-button">Cerrar</button>
+        `);
+    }
+}
+
+// ── Procesar configuración SaaS con SSO redirect
+async function processSaasConfiguration(marketplaceToken) {
+    try {
+        console.log("🚀 Procesando configuración SaaS con SSO redirect...");
+        console.log("🎫 Marketplace token (primeros 50 chars):", marketplaceToken.substring(0, 50));
+
+        showSaasOverlay();
+        updateSaasContent(`
+            <div class="spinner"></div>
+            <h2>Preparando tu suscripción...</h2>
+            <p>Configurando autenticación segura...</p>
+        `);
+
+        // Paso 1: Inicializar MSAL
+        const msalReady = await initializeMsal();
+        if (!msalReady) {
+            throw new Error("No se pudo inicializar el sistema de autenticación");
+        }
+
+        // Paso 2: Realizar SSO login con redirect
+        await performSsoLogin(marketplaceToken);
+        
+        // Nota: El proceso continúa en handleMicrosoftRedirect cuando el usuario regrese
 
     } catch (error) {
         console.error("💥 Error de proceso:", error);
@@ -653,13 +666,68 @@ async function processSaasConfiguration(marketplaceToken) {
     }
 }
 
-// 🔍 Detectar token al cargar la página
-document.addEventListener("DOMContentLoaded", () => {
-    const token = getUrlParameter("token");
-    if (token) {
-        console.log("🎯 Token de configuración detectado");
-        console.log("🔗 Usando arquitectura SSO completa");
+// ── Manejar redirect de Microsoft login (GLOBAL)
+async function handleMicrosoftRedirect() {
+    try {
+        // Solo intentar si tenemos MSAL cargado
+        if (!window.msal) {
+            return;
+        }
+
+        // Inicializar MSAL si no está inicializado
+        if (!msalInstance) {
+            await initializeMsal();
+        }
+
+        if (!msalInstance) {
+            return;
+        }
+
+        console.log("🔄 Verificando redirect de Microsoft...");
+        const result = await msalInstance.handleRedirectPromise();
+        
+        if (result && result.idToken) {
+            console.log("✅ Usuario regresó del login de Microsoft");
+            
+            // Obtener el marketplace token guardado
+            const marketplaceToken = sessionStorage.getItem('marketplaceToken') || getUrlParameter("token");
+            
+            if (marketplaceToken) {
+                // Continuar con el proceso de activación
+                await continuarProcesoDespuesDelLogin(marketplaceToken, result.idToken);
+            } else {
+                console.error("❌ No se encontró marketplace token después del redirect");
+            }
+        }
+        
+    } catch (error) {
+        console.error("❌ Error manejando redirect de Microsoft:", error);
+        
         showSaasOverlay();
+        updateSaasContent(`
+            <div class="error-icon">❌</div>
+            <h2>Error después del Login</h2>
+            <p>Hubo un problema procesando tu login de Microsoft.</p>
+            <p><strong>Error:</strong> ${error.message}</p>
+            <br>
+            <button onclick="hideSaasOverlay()" class="saas-button">Cerrar</button>
+        `);
+    }
+}
+
+// 🔍 Detectar token al cargar la página
+document.addEventListener("DOMContentLoaded", async () => {
+    console.log("📄 Página cargada, verificando estado...");
+    
+    // PRIMERO: Manejar posible redirect de Microsoft
+    await handleMicrosoftRedirect();
+    
+    // SEGUNDO: Si hay token nuevo, iniciar proceso
+    const token = getUrlParameter("token");
+    if (token && !sessionStorage.getItem('marketplaceToken')) {
+        console.log("🎯 Token de configuración detectado");
+        console.log("🔗 Usando arquitectura SSO con redirect");
+        
         // Pequeña pausa para que se vea la UI
         setTimeout(() => processSaasConfiguration(token), 1000);
     }
@@ -669,21 +737,26 @@ document.addEventListener("DOMContentLoaded", () => {
 window.testSaasConfig = function(testToken) {
     const token = testToken || prompt("Ingresa un token de prueba:");
     if (token) {
-        showSaasOverlay();
         processSaasConfiguration(token);
     }
 };
 
 window.debugMarketplace = function() {
-    console.log("=== 🔧 DEBUG MARKETPLACE (SSO) ===");
+    console.log("=== 🔧 DEBUG MARKETPLACE (SSO Redirect) ===");
     console.log("Backend URL:", BACKEND_URL);
     console.log("Landing endpoint:", `${BACKEND_URL}/api/marketplace/landing/activate`);
     console.log("SSO config endpoint:", `${BACKEND_URL}/api/marketplace/landing/sso-config`);
     console.log("Current URL:", window.location.href);
     console.log("URL Params:", window.location.search);
-    console.log("Token detected:", !!getUrlParameter("token"));
+    console.log("Token in URL:", getUrlParameter("token"));
+    console.log("Token in storage:", sessionStorage.getItem('marketplaceToken'));
     console.log("MSAL loaded:", !!window.msal);
     console.log("MSAL instance:", !!msalInstance);
+};
+
+window.clearSession = function() {
+    sessionStorage.removeItem('marketplaceToken');
+    console.log("🧹 Session storage limpiado");
 };
 
 // 🏥 Health checks
@@ -716,6 +789,6 @@ window.testSsoConfig = async function() {
         alert("❌ No se pudo obtener configuración SSO");
     }
 };
-    </script>
+   </script>
 </body>
 </html>
