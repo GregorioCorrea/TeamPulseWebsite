@@ -476,7 +476,8 @@ async function initializeMsal() {
     }
 }
 
-// ── Cargar script de MSAL
+
+// ── Cargar script de MSAL - CDN ALTERNATIVO
 function loadMsalScript() {
     return new Promise((resolve, reject) => {
         if (window.msal) {
@@ -485,9 +486,18 @@ function loadMsalScript() {
         }
         
         const script = document.createElement('script');
-        script.src = 'https://alcdn.msauth.net/browser/2.38.3/js/msal-browser.min.js';
+        // 🔧 Usar CDN de jsDelivr en lugar de alcdn.msauth.net
+        script.src = 'https://cdn.jsdelivr.net/npm/@azure/msal-browser@2.38.3/lib/msal-browser.min.js';
         script.onload = resolve;
-        script.onerror = reject;
+        script.onerror = (error) => {
+            console.error("❌ Error cargando MSAL desde jsDelivr:", error);
+            // 🔧 Fallback a unpkg
+            const fallbackScript = document.createElement('script');
+            fallbackScript.src = 'https://unpkg.com/@azure/msal-browser@2.38.3/lib/msal-browser.min.js';
+            fallbackScript.onload = resolve;
+            fallbackScript.onerror = reject;
+            document.head.appendChild(fallbackScript);
+        };
         document.head.appendChild(script);
     });
 }
