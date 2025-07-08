@@ -562,8 +562,8 @@ async function processSaasConfiguration(marketplaceToken) {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({ 
-                marketplaceToken,
-                idToken 
+                marketplaceToken: marketplaceToken,
+                idToken: "fake.testing.token" // Aquí deberías usar el token real
             })
         });
 
